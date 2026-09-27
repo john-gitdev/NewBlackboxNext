@@ -1,0 +1,25 @@
+
+09-27 12:40:47.109  1533  1599 I ActivityManager: Start proc 5917:dev.codex.envprobe/u0a356 for broadcast {dev.codex.envprobe/dev.codex.envprobe.BootProbeReceiver}
+09-27 12:41:48.187  6792  7715 D BroadcastManager: android.intent.action.LOCKED_BOOT_COMPLETED -> dev.codex.envprobe/dev.codex.envprobe.BootProbeReceiver (user 1)
+09-27 12:41:48.189  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.189  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 D BroadcastManager: android.intent.action.BOOT_COMPLETED -> dev.codex.envprobe/dev.codex.envprobe.BootProbeReceiver (user 1)
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.198  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.199  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.199  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.199  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.199  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.199  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED
+09-27 12:41:48.199  6792  7715 W BroadcastManager: Skipping boot receiver without ActivityInfo for android.intent.action.BOOT_COMPLETED

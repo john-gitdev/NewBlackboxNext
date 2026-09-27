@@ -221,8 +221,13 @@ public class BroadcastManager implements PackageMonitor {
                 Slog.w(TAG, "Unable to query " + action, t);
                 continue;
             }
+            int missingActivityInfo = 0;
             for (ResolveInfo resolve : resolves) {
-                ActivityInfo info = resolve.activityInfo;
+                ActivityInfo info = resolve == null ? null : resolve.activityInfo;
+                if (info == null) {
+                    missingActivityInfo++;
+                    continue;
+                }
                 try {
                     ProcessRecord app = BProcessManagerService.get()
                             .startProcessLocked(info.packageName, info.processName, userId, -1, -1);
@@ -240,6 +245,10 @@ public class BroadcastManager implements PackageMonitor {
                 } catch (Throwable t) {
                     Slog.w(TAG, "Unable to deliver " + action + " to " + info.name, t);
                 }
+            }
+            if (missingActivityInfo != 0) {
+                Slog.w(TAG, "Skipped " + missingActivityInfo
+                        + " boot receiver results without ActivityInfo for " + action);
             }
         }
     }
