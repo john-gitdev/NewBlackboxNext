@@ -280,6 +280,26 @@ public class BPackageManager extends BlackManager<IBPackageManagerService> {
         return null;
     }
 
+    public int getPackageUid(String packageName, int userId) {
+        try {
+            IBPackageManagerService service = getServiceWithFallback();
+            return service == null ? -1 : service.getPackageUid(packageName, userId);
+        } catch (RemoteException e) {
+            Log.e(TAG, "RemoteException in getPackageUid for " + packageName, e);
+            return -1;
+        }
+    }
+
+    public String[] getInstallSource(String packageName, int userId) {
+        try {
+            IBPackageManagerService service = getServiceWithFallback();
+            return service == null ? null : service.getInstallSource(packageName, userId);
+        } catch (RemoteException e) {
+            Log.e(TAG, "RemoteException in getInstallSource for " + packageName, e);
+            return null;
+        }
+    }
+
     public ApplicationInfo getApplicationInfo(String packageName, int flags, int userId) {
         try {
             IBPackageManagerService service = getServiceWithFallback();

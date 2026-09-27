@@ -57,6 +57,15 @@ public class PendingResultData implements Parcelable {
         }
     }
 
+    // For a broadcast the container makes up itself, such as the boot broadcasts, which
+    // has no system receiver token to report back to. Type 2 is
+    // PendingResult.TYPE_UNREGISTERED: finishing it makes no call to the system.
+    public PendingResultData(int sendingUser) {
+        mBToken = UUID.randomUUID().toString();
+        mType = 2;
+        mSendingUser = sendingUser;
+    }
+
     public BroadcastReceiver.PendingResult build() {
         if (BuildCompat.isM()) {
             return BRBroadcastReceiverPendingResultM.get()._new(mResultCode, mResultData, mResultExtras, mType, mOrderedHint, mInitialStickyHint, mToken, mSendingUser, mFlags);

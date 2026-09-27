@@ -6,6 +6,7 @@ import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -388,6 +389,7 @@ public class BlackBoxCore extends ClientConfiguration {
             Slog.d(TAG, "getService: " + name + ", " + binder);
             if (binder != null) {
                 mServices.put(name, binder);
+                holdServerConnection();
             } else {
                 Slog.w(TAG, "Failed to get binder for service: " + name);
                 
@@ -401,6 +403,28 @@ public class BlackBoxCore extends ClientConfiguration {
     }
     
     
+    // Service lookups close their provider client as soon as the call returns, which
+    // leaves the server process with no lasting clients: once the host UI leaves the
+    // foreground Android caches and freezes it, and a guest that is still running gets
+    // DeadObjectException on its next call. An open provider connection makes the
+    // system rank the server process at least as high as the processes using it.
+    private ContentProviderClient mServerConnection;
+
+    private synchronized void holdServerConnection() {
+        if (isServerProcess()) {
+            return;
+        }
+        // Lookups only reach the provider when a cached binder is missing or dead, so
+        // re-acquiring here picks up a restarted server. Acquire before releasing so
+        // the connection never drops to zero in between.
+        ContentProviderClient previous = mServerConnection;
+        mServerConnection = getContext().getContentResolver()
+                .acquireUnstableContentProviderClient(ProxyManifest.getBindProvider());
+        if (previous != null) {
+            previous.release();
+        }
+    }
+
     private IBinder createFallbackService(String name) {
         try {
             

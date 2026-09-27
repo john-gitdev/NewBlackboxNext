@@ -1,24 +1,84 @@
 package top.niunaijun.blackbox.proxy;
 
+import android.app.Service;
 import android.app.job.JobParameters;
-import android.app.job.JobService;
+import android.app.job.JobServiceEngine;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Binder;
+import android.os.IBinder;
+import android.os.Parcel;
+import android.os.RemoteException;
 
 import top.niunaijun.blackbox.app.dispatcher.AppJobServiceDispatcher;
+import top.niunaijun.blackbox.utils.Slog;
+import top.niunaijun.blackbox.utils.compat.BuildCompat;
 
 
-public class ProxyJobService extends JobService {
+public class ProxyJobService extends Service {
     public static final String TAG = "StubJobService";
+    private static final String DESCRIPTOR = "android.app.job.IJobService";
+
+    // Takes jobs no guest service can be found for and finishes them straight away, so
+    // Android isn't left waiting on an answer. JobServiceEngine is API 26+; earlier,
+    // such a job simply times out.
+    private IBinder mNoJobBinder;
+
+    // Android drives a job service through the binder its onBind returns. This one reads
+    // the job id off each call and passes the call on untouched to the binder the job's
+    // guest service returned, so the guest's own job engine deals with Android directly.
+    // That covers JobService and anything else built on JobServiceEngine - androidx's
+    // JobIntentService is a plain Service - along with every call newer Android adds.
+    // Calling the guest from inside a JobService of our own instead would have both
+    // engines acknowledge the same start, and Android takes the second as the job ending.
+    private final Binder mRouter = new Binder() {
+        @Override
+        protected boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
+            if (code < FIRST_CALL_TRANSACTION || code > LAST_CALL_TRANSACTION) {
+                return super.onTransact(code, data, reply, flags);
+            }
+            // Every IJobService call starts with the JobParameters.
+            int start = data.dataPosition();
+            data.enforceInterface(DESCRIPTOR);
+            JobParameters params = data.readInt() != 0 ? JobParameters.CREATOR.createFromParcel(data) : null;
+            data.setDataPosition(start);
+
+            IBinder target = null;
+            if (params != null) {
+                try {
+                    target = AppJobServiceDispatcher.get().getJobBinder(params.getJobId());
+                } catch (Throwable t) {
+                    Slog.e(TAG, "Unable to reach the service for job " + params.getJobId(), t);
+                }
+            }
+            if (target == null) {
+                target = mNoJobBinder;
+            }
+            return target == null || target.transact(code, data, reply, flags);
+        }
+    };
 
     @Override
-    public boolean onStartJob(JobParameters params) {
-        return AppJobServiceDispatcher.get().onStartJob(params);
+    public void onCreate() {
+        super.onCreate();
+        if (BuildCompat.isOreo()) {
+            mNoJobBinder = new JobServiceEngine(this) {
+                @Override
+                public boolean onStartJob(JobParameters params) {
+                    return false;
+                }
+
+                @Override
+                public boolean onStopJob(JobParameters params) {
+                    return false;
+                }
+            }.getBinder();
+        }
     }
 
     @Override
-    public boolean onStopJob(JobParameters params) {
-        return AppJobServiceDispatcher.get().onStopJob(params);
+    public IBinder onBind(Intent intent) {
+        return mRouter;
     }
 
     @Override

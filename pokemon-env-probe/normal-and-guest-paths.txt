@@ -1,0 +1,10 @@
+Captured 2026-09-26T17:41:48.5949358-07:00
+Normal Android package view:
+versionCode=374561 minSdk=24 targetSdk=36
+dataDir=/data/user/0/jp.pokemon.pokemontcgp
+dataDir=/data/user/10/jp.pokemon.pokemontcgp
+Owner-user package UIDs:
+package:jp.pokemon.pokemontcgp uid:10327
+package:top.niunaijun.blackbox uid:10355
+BlackBox guest backing directory:
+drwx------ 7 u0_a355 u0_a355 3452 2026-09-24 11:19 /data/user/0/top.niunaijun.blackbox/blackbox/data/user/0/jp.pokemon.pokemontcgp

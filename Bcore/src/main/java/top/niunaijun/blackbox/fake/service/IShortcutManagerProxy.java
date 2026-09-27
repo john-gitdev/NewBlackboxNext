@@ -57,7 +57,7 @@ public class IShortcutManagerProxy extends BinderInvocationStub {
         addMethodHook(new PkgMethodProxy("getManifestShortcuts"){
             @Override
             protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-                return ParceledListSliceCompat.create(new ArrayList<ShortcutInfo>());
+                return ParceledListSliceCompat.createFor(method, new ArrayList<ShortcutInfo>());
             }
         });
     }

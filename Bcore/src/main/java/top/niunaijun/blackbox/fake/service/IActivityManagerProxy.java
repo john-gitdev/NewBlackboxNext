@@ -145,24 +145,24 @@ public class IActivityManagerProxy extends ClassInvocationStub {
                     args[1] = BlackBoxCore.getHostPkg();
                 }
 
-                if (auth.equals("settings")
+                boolean hostOnly = auth.equals("settings")
                         || auth.equals("media")
                         || auth.equals("telephony")
-                        || ((String) auth).contains("com.google.android.gms")
-                        || ((String) auth).contains("com.android.vending")
-                        || ((String) auth).contains("com.google.android.gsf")
-                        || auth.equals("com.google.android.gms.chimera")
                         || auth.equals("com.huawei.android.launcher.settings")
-                        || auth.equals("com.hihonor.android.launcher.settings")) {
+                        || auth.equals("com.hihonor.android.launcher.settings");
+                // Google's providers come from the container's own Google apps when they are
+                // installed; the phone's copies refuse the host's uid.
+                boolean google = ((String) auth).contains("com.google.android.gms")
+                        || ((String) auth).contains("com.android.vending")
+                        || ((String) auth).contains("com.google.android.gsf");
+                ProviderInfo providerInfo = hostOnly ? null : BlackBoxCore.getBPackageManager()
+                        .resolveContentProvider(
+                                (String) auth, GET_META_DATA, BActivityThread.getUserId());
+                if (hostOnly || (google && providerInfo == null)) {
                     content = method.invoke(who, args);
                     ContentProviderDelegate.update(content, (String) auth);
                     return content;
                 } else {
-                    
-
-                    ProviderInfo providerInfo = BlackBoxCore.getBPackageManager()
-                            .resolveContentProvider(
-                                    (String) auth, GET_META_DATA, BActivityThread.getUserId());
                     if (providerInfo == null) {
                         
                         return null;
@@ -170,6 +170,7 @@ public class IActivityManagerProxy extends ClassInvocationStub {
 
                     
                     IBinder providerBinder = null;
+                    boolean inThisProcess = false;
                     if (BActivityThread.getAppPid() != -1) {
                         AppConfig appConfig = BlackBoxCore.getBActivityManager()
                                 .initProcess(
@@ -179,15 +180,27 @@ public class IActivityManagerProxy extends ClassInvocationStub {
                         if (appConfig.bpid != BActivityThread.getAppPid()) {
                             providerBinder = BlackBoxCore.getBActivityManager()
                                     .acquireContentProviderClient(providerInfo);
+                        } else {
+                            inThisProcess = true;
                         }
                         args[authIndex] = ProxyManifest.getProxyAuthorities(appConfig.bpid);
                         args[getUserIndex()] = BlackBoxCore.getHostUserId();
                     }
-                    if (providerBinder == null)
+                    if (providerBinder == null && !inThisProcess)
                         return null;
 
                     content = method.invoke(who, args);
                     Reflector.with(content).field("info").set(providerInfo);
+                    // The provider belongs to this very process but isn't installed yet -
+                    // one provider reading another while the process starts, as microG's
+                    // ProfileProvider does. For the proxy provider of our own process the
+                    // system answered with no provider, which tells ActivityThread to
+                    // create it here; with the guest's info in place, it creates the
+                    // guest's. Returning nothing failed with "Failed to find provider info".
+                    if (inThisProcess) {
+                        Reflector.with(content).field("provider").set(null);
+                        return content;
+                    }
                     Reflector.with(content)
                             .field("provider")
                             .set(
@@ -578,7 +591,12 @@ public class IActivityManagerProxy extends ClassInvocationStub {
             String resolvedType = (String) args[intentIndex + 1];
             Intent proxyIntent = BlackBoxCore.getBActivityManager().sendBroadcast(intent, resolvedType, BActivityThread.getUserId());
             if (proxyIntent != null) {
-                proxyIntent.setExtrasClassLoader(BActivityThread.getApplication().getClassLoader());
+                // Play services sends broadcasts from attachBaseContext, before its
+                // Application exists.
+                ClassLoader classLoader = BActivityThread.getAppClassLoader();
+                if (classLoader != null) {
+                    proxyIntent.setExtrasClassLoader(classLoader);
+                }
                 ProxyBroadcastRecord.saveStub(proxyIntent, intent, BActivityThread.getUserId());
                 args[intentIndex] = proxyIntent;
             }
@@ -588,6 +606,13 @@ public class IActivityManagerProxy extends ClassInvocationStub {
                 if (o instanceof String[]) {
                     args[i] = null;
                 }
+            }
+            // The user id is the last argument. A guest sending to every user (-1), as
+            // Play services does, would need INTERACT_ACROSS_USERS_FULL; its broadcast
+            // goes out as the host's anyway.
+            int userIndex = args.length - 1;
+            if (args[userIndex] instanceof Integer) {
+                args[userIndex] = BlackBoxCore.getHostUserId();
             }
             return method.invoke(who, args);
         }
@@ -760,7 +785,7 @@ public class IActivityManagerProxy extends ClassInvocationStub {
     public static class getHistoricalProcessExitReasons extends MethodHook {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            return ParceledListSliceCompat.create(new ArrayList<>());
+            return ParceledListSliceCompat.createFor(method, new ArrayList<>());
         }
     }
 
@@ -777,7 +802,7 @@ public class IActivityManagerProxy extends ClassInvocationStub {
     public static class checkPermission extends MethodHook {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            MethodParameterUtils.replaceLastUid(args);
+            replaceUid(args);
             String permission = (String) args[0];
             if (permission.equals(Manifest.permission.ACCOUNT_MANAGER)
                     || permission.equals(Manifest.permission.SEND_SMS)) {
@@ -797,6 +822,25 @@ public class IActivityManagerProxy extends ClassInvocationStub {
             }
             
             return method.invoke(who, args);
+        }
+
+        protected void replaceUid(Object[] args) {
+            MethodParameterUtils.replaceLastUid(args);
+        }
+    }
+
+    // What PermissionManager asks in place of checkPermission on newer Android - where
+    // Context.checkPermission and interfaces' @EnforcePermission checks end up. Unhooked,
+    // every account authenticator in the container refused the container's account
+    // service: "Access denied, requires: android.permission.ACCOUNT_MANAGER". The uid is
+    // followed by a device id, so it isn't the last int.
+    @ProxyMethod("checkPermissionForDevice")
+    public static class CheckPermissionForDevice extends checkPermission {
+        @Override
+        protected void replaceUid(Object[] args) {
+            if (args.length > 2 && args[2] instanceof Integer && (int) args[2] == BlackBoxCore.getBUid()) {
+                args[2] = BlackBoxCore.getHostUid();
+            }
         }
     }
 

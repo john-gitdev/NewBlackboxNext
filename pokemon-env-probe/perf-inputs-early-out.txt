@@ -1,0 +1,13 @@
+﻿ARMED DATA_DIR time_ns=496878975110495 tid=6932 addr=0x72e5cbb1ac
+ARMED PACKAGE_NAME time_ns=496878975206849 tid=6932 addr=0x72e5cbb1cc
+ARMED PATH_PREFIX time_ns=496878975222922 tid=6932 addr=0x72e5cbb22c
+ARMED PREFIX_HAS_DOT time_ns=496878975251283 tid=6932 addr=0x72e5cbb238
+SAMPLE DATA_DIR time_ns=496880944199427 ip=0x72e5cbb1ac pid=6855 tid=6932 abi=2 x0=0x76280b0e10 x1=0x5c000000 x2=0x74880cfe10 x3=0x7426dea416 x8=0xc03920a0569ce6be x28=0x7528048b90 lr=0x72e5cbb1ac sp=0x72f1e582a0 pc=0x72e5cbb1ac cstring='/data/user/0/top.niunaijun.blackbox/blackbox/data/user/0/jp.pokemon.pokemontcgp'
+SAMPLE PACKAGE_NAME time_ns=496880944220342 ip=0x72e5cbb1cc pid=6855 tid=6932 abi=2 x0=0x7538098cb0 x1=0x5c000000 x2=0x74880cfe10 x3=0x7426dea416 x8=0xc03920a0569ce6be x28=0x7528048b90 lr=0x72e5cbb1cc sp=0x72f1e582a0 pc=0x72e5cbb1cc cstring='jp.pokemon.pokemontcgp'
+SAMPLE PATH_PREFIX time_ns=496880944226039 ip=0x72e5cbb22c pid=6855 tid=6932 abi=2 x0=0x72f1e58260 x1=0x2e x2=0 x3=0x40 x8=0x72f1e582a0 x28=0x7528048b90 lr=0x72e5cbb228 sp=0x72f1e58260 pc=0x72e5cbb22c cstring='u???r'
+SAMPLE PREFIX_HAS_DOT time_ns=496880944231288 ip=0x72e5cbb238 pid=6855 tid=6932 abi=2 x0=0x72f1e58270 x1=0x2e x2=0x72f1e58260 x3=0x20 x8=0x72f1e582a0 x28=0x7528048b90 lr=0x72e5cbb230 sp=0x72f1e582a0 pc=0x72e5cbb238 cstring='??s?r'
+SAMPLE DATA_DIR time_ns=496883186425208 ip=0x72e5cbb1ac pid=6855 tid=6932 abi=2 x0=0x76280baa70 x1=0x5c000000 x2=0x74880cfe10 x3=0x7426dea416 x8=0xc03920a0569ce6be x28=0x7528048b90 lr=0x72e5cbb1ac sp=0x72f1e57be0 pc=0x72e5cbb1ac cstring='/data/user/0/top.niunaijun.blackbox/blackbox/data/user/0/jp.pokemon.pokemontcgp'
+SAMPLE PACKAGE_NAME time_ns=496883186440426 ip=0x72e5cbb1cc pid=6855 tid=6932 abi=2 x0=0x75380a3840 x1=0x5c000000 x2=0x74880cfe10 x3=0x7426dea416 x8=0xc03920a0569ce6be x28=0x7528048b90 lr=0x72e5cbb1cc sp=0x72f1e57be0 pc=0x72e5cbb1cc cstring='jp.pokemon.pokemontcgp'
+SAMPLE PATH_PREFIX time_ns=496883186445227 ip=0x72e5cbb22c pid=6855 tid=6932 abi=2 x0=0x72f1e57ba0 x1=0x2e x2=0 x3=0x40 x8=0x72f1e57be0 x28=0x7528048b90 lr=0x72e5cbb228 sp=0x72f1e57ba0 pc=0x72e5cbb22c cstring=''
+SAMPLE PREFIX_HAS_DOT time_ns=496883186449256 ip=0x72e5cbb238 pid=6855 tid=6932 abi=2 x0=0x72f1e57bb0 x1=0x2e x2=0x72f1e57ba0 x3=0x20 x8=0x72f1e57be0 x28=0x7528048b90 lr=0x72e5cbb230 sp=0x72f1e57be0 pc=0x72e5cbb238 cstring='I???v'
+DONE

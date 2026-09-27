@@ -37,6 +37,6 @@ public abstract class ClientConfiguration {
 
     
     public String getLogSenderChatId() {
-        return "-1003719573856";
+        return null; // AutoPTCGP: never upload logs (was the upstream Telegram chat id)
     }
 }

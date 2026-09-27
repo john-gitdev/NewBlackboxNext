@@ -1,12 +1,46 @@
 package top.niunaijun.blackbox.utils;
 
+import android.content.AttributionSource;
+import android.os.Build;
+
 import top.niunaijun.blackbox.BlackBoxCore;
 import top.niunaijun.blackbox.app.BActivityThread;
+import top.niunaijun.blackbox.entity.AppConfig;
 import top.niunaijun.blackbox.utils.Slog;
 
 
 public class AttributionSourceUtils {
     private static final String TAG = "AttributionSourceUtils";
+
+    // For a call into a content provider another guest hosts. Unparceling the source,
+    // the provider's process checks its uid against the caller's, which it now sees as
+    // the calling guest's virtual uid (NativeCore.getCallingUid) - so the source has to
+    // carry that uid, and the guest's own package. Rebuilt through the public Builder,
+    // since Android 12+ keeps these in a private state object.
+    public static void stampGuestCaller(Object[] args) {
+        if (args == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            return;
+        }
+        AppConfig config = BActivityThread.getAppConfig();
+        if (config == null) {
+            return;
+        }
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] instanceof AttributionSource) {
+                AttributionSource source = (AttributionSource) args[i];
+                AttributionSource.Builder builder = new AttributionSource.Builder(config.buid)
+                        .setPackageName(config.packageName)
+                        .setAttributionTag(source.getAttributionTag());
+                if (source.getNext() != null) {
+                    builder.setNext(source.getNext());
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                    builder.setDeviceId(source.getDeviceId());
+                }
+                args[i] = builder.build();
+            }
+        }
+    }
 
     
     public static void fixAttributionSourceInArgs(Object[] args) {

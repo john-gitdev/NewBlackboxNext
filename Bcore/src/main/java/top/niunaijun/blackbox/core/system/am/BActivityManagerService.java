@@ -173,6 +173,11 @@ public class BActivityManagerService extends IBActivityManagerService.Stub imple
             ActivityManager.RunningAppProcessInfo runningAppProcessInfo = runningProcessMap.get(processRecord.pid);
             if (runningAppProcessInfo != null) {
                 runningAppProcessInfo.processName = processRecord.processName;
+                // Left as the host's, a guest matching a caller's pid to its package got
+                // BlackBox's: microG then refused its own calls with "UID ... is not
+                // related to packageName [com.google.android.gms] (seems to be
+                // top.niunaijun.blackbox)".
+                runningAppProcessInfo.pkgList = new String[]{processRecord.getPackageName()};
                 appProcessInfo.mAppProcessInfoList.add(runningAppProcessInfo);
             }
         }
@@ -370,5 +375,17 @@ public class BActivityManagerService extends IBActivityManagerService.Stub imple
     @Override
     public void systemReady() {
         mBroadcastManager.startup();
+    }
+
+    @Override
+    public int getBUidByPid(int pid) {
+        ProcessRecord app = BProcessManagerService.get().findProcessByPid(pid);
+        return app == null ? -1 : app.buid;
+    }
+
+    // After every container service is ready, including the process manager the boot
+    // broadcasts need.
+    public void onSystemStarted() {
+        mBroadcastManager.onSystemStarted();
     }
 }

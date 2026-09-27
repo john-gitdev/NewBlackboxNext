@@ -72,7 +72,10 @@ void install_property_get_hook() {
 }
 
 
-__attribute__((constructor)) void init_virtual_spoof()
+// AutoPTCGP: not installed. It told every guest it was a Pixel 6 on Android 12
+// while Java reported the real device, and inline-patched libc to do it - both
+// things a game's integrity checks look for.
+void init_virtual_spoof()
 {
     install_property_get_hook();
     LOGD("VirtualSpoof: __system_property_get hook loaded");

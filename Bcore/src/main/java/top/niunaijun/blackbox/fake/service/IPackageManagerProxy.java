@@ -12,8 +12,11 @@ import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.util.Log;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +27,7 @@ import black.android.app.ContextImpl;
 import black.android.content.pm.BRPackageManager;
 import top.niunaijun.blackbox.BlackBoxCore;
 import top.niunaijun.blackbox.app.BActivityThread;
+import top.niunaijun.blackbox.core.GmsCore;
 import top.niunaijun.blackbox.core.env.AppSystemEnv;
 import top.niunaijun.blackbox.fake.FakeCore;
 import top.niunaijun.blackbox.fake.hook.BinderInvocationStub;
@@ -132,12 +136,7 @@ public class IPackageManagerProxy extends BinderInvocationStub {
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
             String packageName = (String) args[0];
             int flags = MethodParameterUtils.toInt(args[1]);
-            
-            
-            if ("com.android.vending".equals(packageName)) {
-                return createFakeGooglePlayServicesPackageInfo();
-            }
-            
+
             PackageInfo packageInfo = BlackBoxCore.getBPackageManager().getPackageInfo(packageName, flags, BlackBoxCore.getUserId());
             if (packageInfo != null) {
                 
@@ -154,13 +153,19 @@ public class IPackageManagerProxy extends BinderInvocationStub {
                 }
                 return packageInfo;
             }
+            // Only when the container has no Play Store of its own. The stand-in carries
+            // no signatures, so once Play services is installed alongside it, Google's
+            // availability check fails it with "Play Store signature is invalid".
+            if (GmsCore.VENDING_PKG.equals(packageName)) {
+                return createFakePlayStorePackageInfo();
+            }
             if (AppSystemEnv.isOpenPackage(packageName)) {
                 return method.invoke(who, args);
             }
             return null;
         }
-        
-        private PackageInfo createFakeGooglePlayServicesPackageInfo() {
+
+        private PackageInfo createFakePlayStorePackageInfo() {
             PackageInfo packageInfo = new PackageInfo();
             packageInfo.packageName = "com.android.vending";
             packageInfo.versionName = "33.8.16-21";
@@ -173,7 +178,7 @@ public class IPackageManagerProxy extends BinderInvocationStub {
             appInfo.uid = 10001; 
             packageInfo.applicationInfo = appInfo;
             
-            Slog.d(TAG, "GetPackageInfo: Providing fake Google Play Services info");
+            Slog.d(TAG, "GetPackageInfo: Providing fake Play Store info");
             return packageInfo;
         }
     }
@@ -182,8 +187,17 @@ public class IPackageManagerProxy extends BinderInvocationStub {
     public static class GetPackageUid extends MethodHook {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            MethodParameterUtils.replaceFirstAppPkg(args);
-            return method.invoke(who, args);
+            String packageName = (String) args[0];
+            int uid = BlackBoxCore.getBPackageManager().getPackageUid(
+                    packageName, BlackBoxCore.getUserId());
+            if (uid != -1) {
+                return uid;
+            }
+            if (BlackBoxCore.getHostPkg().equals(packageName)
+                    || AppSystemEnv.isOpenPackage(packageName)) {
+                return method.invoke(who, args);
+            }
+            return -1;
         }
     }
 
@@ -259,7 +273,7 @@ public class IPackageManagerProxy extends BinderInvocationStub {
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
             int flags = MethodParameterUtils.toInt(args[0]);
             List<ApplicationInfo> installedApplications = BlackBoxCore.getBPackageManager().getInstalledApplications(flags, BlackBoxCore.getUserId());
-            return ParceledListSliceCompat.create(installedApplications);
+            return ParceledListSliceCompat.createFor(method, installedApplications);
         }
     }
 
@@ -270,7 +284,7 @@ public class IPackageManagerProxy extends BinderInvocationStub {
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
             int flags = MethodParameterUtils.toInt(args[0]);
             List<PackageInfo> installedPackages = BlackBoxCore.getBPackageManager().getInstalledPackages(flags, BlackBoxCore.getUserId());
-            return ParceledListSliceCompat.create(installedPackages);
+            return ParceledListSliceCompat.createFor(method, installedPackages);
         }
     }
 
@@ -302,7 +316,7 @@ public class IPackageManagerProxy extends BinderInvocationStub {
             int flags = MethodParameterUtils.toInt(args[2]);
             List<ProviderInfo> providers = BlackBoxCore.getBPackageManager().
                     queryContentProviders(BlackBoxCore.getAppProcessName(), BlackBoxCore.getBUid(), flags, BlackBoxCore.getUserId());
-            return ParceledListSliceCompat.create(providers);
+            return ParceledListSliceCompat.createFor(method, providers);
         }
     }
 
@@ -318,7 +332,7 @@ public class IPackageManagerProxy extends BinderInvocationStub {
 
             
             if (BuildCompat.isN()) {
-                return ParceledListSliceCompat.create(resolves);
+                return ParceledListSliceCompat.createFor(method, resolves);
             }
 
             
@@ -364,12 +378,69 @@ public class IPackageManagerProxy extends BinderInvocationStub {
         }
     }
 
+    // The installer service checks every package name it is handed against the
+    // caller's uid, and a guest's name never belongs to the host's. Unwrapped, a
+    // guest that asks for its own sessions (F-Droid does on launch) gets a
+    // SecurityException: "Package org.fdroid.fdroid does not belong to 10355".
+    @ProxyMethod("getPackageInstaller")
+    public static class GetPackageInstaller extends MethodHook {
+        @Override
+        protected Object hook(Object who, Method method, Object[] args) throws Throwable {
+            Object installer = method.invoke(who, args);
+            if (installer == null) {
+                return null;
+            }
+            Class<?> iface = Class.forName("android.content.pm.IPackageInstaller");
+            return Proxy.newProxyInstance(GetPackageInstaller.class.getClassLoader(), new Class<?>[]{iface},
+                    (proxy, m, a) -> {
+                        MethodParameterUtils.replaceAllAppPkg(a);
+                        try {
+                            return m.invoke(installer, a);
+                        } catch (InvocationTargetException e) {
+                            throw e.getCause();
+                        }
+                    });
+        }
+    }
+
     @ProxyMethod("getInstallerPackageName")
     public static class GetInstallerPackageName extends MethodHook {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            
-            return "com.android.vending";
+            String packageName = (String) args[0];
+            String[] source = BlackBoxCore.getBPackageManager().getInstallSource(
+                    packageName, BlackBoxCore.getUserId());
+            if (source != null) {
+                return source[2];
+            }
+            if (BlackBoxCore.getHostPkg().equals(packageName)
+                    || AppSystemEnv.isOpenPackage(packageName)) {
+                return method.invoke(who, args);
+            }
+            return null;
+        }
+    }
+
+    @ProxyMethod("getInstallSourceInfo")
+    public static class GetInstallSourceInfo extends MethodHook {
+        @Override
+        protected Object hook(Object who, Method method, Object[] args) throws Throwable {
+            String packageName = (String) args[0];
+            String[] source = BlackBoxCore.getBPackageManager().getInstallSource(
+                    packageName, BlackBoxCore.getUserId());
+            if (source != null) {
+                Class<?> infoClass = Class.forName("android.content.pm.InstallSourceInfo");
+                Constructor<?> constructor = infoClass.getDeclaredConstructor(
+                        String.class, Class.forName("android.content.pm.SigningInfo"),
+                        String.class, String.class);
+                constructor.setAccessible(true);
+                return constructor.newInstance(source[0], null, source[1], source[2]);
+            }
+            if (BlackBoxCore.getHostPkg().equals(packageName)
+                    || AppSystemEnv.isOpenPackage(packageName)) {
+                return method.invoke(who, args);
+            }
+            return null;
         }
     }
 
@@ -378,7 +449,7 @@ public class IPackageManagerProxy extends BinderInvocationStub {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
             
-            return ParceledListSliceCompat.create(new ArrayList<>());
+            return ParceledListSliceCompat.createFor(method, new ArrayList<>());
         }
     }
 

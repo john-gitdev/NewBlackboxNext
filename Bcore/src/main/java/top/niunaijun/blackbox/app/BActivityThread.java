@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.Instrumentation;
 import android.app.Service;
-import android.app.job.JobService;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentProvider;
@@ -147,6 +146,17 @@ public class BActivityThread extends IBActivityThread.Stub {
         return currentActivityThread().mInitialApplication;
     }
 
+    // The guest's class loader, available from bind time - before its Application
+    // exists, e.g. while Application.attachBaseContext runs.
+    public static ClassLoader getAppClassLoader() {
+        Application application = getApplication();
+        if (application != null) {
+            return application.getClassLoader();
+        }
+        AppBindData bindData = currentActivityThread().mBoundApplication;
+        return bindData == null ? null : BRLoadedApk.get(bindData.info).getClassLoader();
+    }
+
     public static int getAppPid() {
         return getAppConfig() == null ? -1 : getAppConfig().bpid;
     }
@@ -257,14 +267,16 @@ public class BActivityThread extends IBActivityThread.Stub {
         }
     }
 
-    public JobService createJobService(ServiceInfo serviceInfo) {
+    // Any Service, not just JobService: androidx's JobIntentService is a plain Service
+    // that hands its job engine out from onBind, and the dispatcher binds it that way.
+    public Service createJobService(ServiceInfo serviceInfo) {
         if (!BActivityThread.currentActivityThread().isInit()) {
             BActivityThread.currentActivityThread().bindApplication(serviceInfo.packageName, serviceInfo.processName);
         }
         ClassLoader classLoader = BRLoadedApk.get(mBoundApplication.info).getClassLoader();
-        JobService service;
+        Service service;
         try {
-            service = (JobService) classLoader.loadClass(serviceInfo.name).newInstance();
+            service = (Service) classLoader.loadClass(serviceInfo.name).newInstance();
         } catch (ClassNotFoundException e) {
             
             if (serviceInfo.name.contains("google.android.gms") || 
@@ -299,7 +311,6 @@ public class BActivityThread extends IBActivityThread.Stub {
             );
             ContextCompat.fix(context);
             service.onCreate();
-            service.onBind(null);
             return service;
         } catch (Exception e) {
             

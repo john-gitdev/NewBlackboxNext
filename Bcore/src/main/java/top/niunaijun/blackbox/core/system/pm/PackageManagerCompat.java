@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ProviderInfo;
+import android.content.pm.Signature;
 import android.content.pm.ServiceInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -26,6 +27,7 @@ import black.android.content.pm.BRPackageParserSigningDetails;
 import black.android.content.pm.BRSigningInfo;
 import black.android.content.res.BRAssetManager;
 import top.niunaijun.blackbox.BlackBoxCore;
+import top.niunaijun.blackbox.core.GmsCore;
 import top.niunaijun.blackbox.core.env.AppSystemEnv;
 import top.niunaijun.blackbox.core.env.BEnvironment;
 import top.niunaijun.blackbox.entity.pm.InstallOption;
@@ -65,6 +67,12 @@ public class PackageManagerCompat {
         pi.sharedUserId = p.mSharedUserId;
         pi.sharedUserLabel = p.mSharedUserLabel;
         pi.applicationInfo = generateApplicationInfo(p, flags, state, userId);
+        // Play's asset delivery decides an install-time asset pack is present from
+        // PackageInfo.splitNames. Left null, a game whose assets ship as a split
+        // (PTCGP's "bundledtree") asks the Play Store for them instead, and quits.
+        if (pi.applicationInfo != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            pi.splitNames = pi.applicationInfo.splitNames;
+        }
 
         pi.firstInstallTime = firstInstallTime;
         pi.lastUpdateTime = lastUpdateTime;
@@ -212,6 +220,20 @@ public class PackageManagerCompat {
                 }
             }
         }
+        // microG presents Google's certificate so apps accept it as Play services. Set
+        // last: the phone's own Google apps share its package names, and their
+        // signatures must not be what decides this.
+        Signature[] fake = GmsCore.getFakeSignatures(p);
+        if (fake != null) {
+            if ((flags & PackageManager.GET_SIGNATURES) != 0) {
+                pi.signatures = fake;
+            }
+            if (BuildCompat.isPie() && (flags & PackageManager.GET_SIGNING_CERTIFICATES) != 0) {
+                PackageParser.SigningDetails signingDetails = PackageParser.SigningDetails.UNKNOWN;
+                BRPackageParserSigningDetails.get(signingDetails)._set_signatures(fake);
+                pi.signingInfo = BRSigningInfo.get()._new(signingDetails);
+            }
+        }
         return pi;
     }
 
@@ -284,7 +306,10 @@ public class PackageManagerCompat {
         }
         ApplicationInfo baseApplication;
         try {
-            baseApplication = BlackBoxCore.getPackageManager().getApplicationInfo(BlackBoxCore.getHostPkg(), flags);
+            // Only the host's scan dirs are read from this. The guest's query flags don't
+            // belong here: ones like MATCH_SYSTEM_ONLY make the host lookup fail, and the
+            // component then went out with no ApplicationInfo and broke parceling.
+            baseApplication = BlackBoxCore.getPackageManager().getApplicationInfo(BlackBoxCore.getHostPkg(), 0);
         } catch (Exception e) {
             return null;
         }
@@ -304,7 +329,7 @@ public class PackageManagerCompat {
         ai.processName = BPackageManagerService.fixProcessName(p.packageName, ai.packageName);
         ai.publicSourceDir = sourceDir;
         ai.sourceDir = sourceDir;
-        ai.uid = p.mExtras.appId;
+        ai.uid = PackageUidCompat.forInstalledPackage(userId, p.mExtras.appId, true);
 
 
         if (BuildCompat.isL()) {

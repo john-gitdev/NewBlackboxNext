@@ -21,6 +21,10 @@ public class BPackageSettings implements Parcelable {
     public BPackage pkg;
     public int appId;
     public InstallOption installOption;
+    // Nullable virtual install provenance. Existing installs have unknown provenance.
+    public String initiatingPackageName;
+    public String originatingPackageName;
+    public String installingPackageName;
     public Map<Integer, BPackageUserState> userState = new HashMap<>();
     static final BPackageUserState DEFAULT_USER_STATE = new BPackageUserState();
 
@@ -124,6 +128,9 @@ public class BPackageSettings implements Parcelable {
             dest.writeValue(entry.getKey());
             dest.writeParcelable(entry.getValue(), flags);
         }
+        dest.writeString(this.initiatingPackageName);
+        dest.writeString(this.originatingPackageName);
+        dest.writeString(this.installingPackageName);
     }
 
     protected BPackageSettings(Parcel in) {
@@ -136,6 +143,12 @@ public class BPackageSettings implements Parcelable {
             Integer key = (Integer) in.readValue(Integer.class.getClassLoader());
             BPackageUserState value = in.readParcelable(BPackageUserState.class.getClassLoader());
             this.userState.put(key, value);
+        }
+        // Older package.conf files end immediately after userState.
+        if (in.dataAvail() > 0) {
+            this.initiatingPackageName = in.readString();
+            this.originatingPackageName = in.readString();
+            this.installingPackageName = in.readString();
         }
     }
 

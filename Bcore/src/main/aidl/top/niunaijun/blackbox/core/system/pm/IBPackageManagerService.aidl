@@ -23,6 +23,8 @@ interface IBPackageManagerService {
     ResolveInfo resolveIntent(in Intent intent, String resolvedType, int flags, int userId);
 
     ApplicationInfo getApplicationInfo(String packageName, int flags, int userId);
+    int getPackageUid(String packageName, int userId);
+    String[] getInstallSource(String packageName, int userId);
     PackageInfo getPackageInfo(String packageName, int flags, int userId);
     ServiceInfo getServiceInfo(in ComponentName component, int flags, int userId);
     ActivityInfo getReceiverInfo(in ComponentName componentName, int flags, int userId);

@@ -112,6 +112,27 @@ public class BPackageManagerService extends IBPackageManagerService.Stub impleme
     }
 
     @Override
+    public int getPackageUid(String packageName, int userId) {
+        if (!sUserManager.exists(userId)) return -1;
+        synchronized (mPackages) {
+            BPackageSettings ps = mPackages.get(packageName);
+            return ps == null ? -1 : PackageUidCompat.forInstalledPackage(
+                    userId, ps.appId, ps.getInstalled(userId));
+        }
+    }
+
+    @Override
+    public String[] getInstallSource(String packageName, int userId) {
+        if (!sUserManager.exists(userId)) return null;
+        synchronized (mPackages) {
+            BPackageSettings ps = mPackages.get(packageName);
+            if (ps == null || !ps.getInstalled(userId)) return null;
+            return new String[]{ps.initiatingPackageName,
+                    ps.originatingPackageName, ps.installingPackageName};
+        }
+    }
+
+    @Override
     public ResolveInfo resolveService(Intent intent, int flags, String resolvedType, int userId) {
         if (!sUserManager.exists(userId)) return null;
         List<ResolveInfo> query = queryIntentServicesInternal(
@@ -236,8 +257,25 @@ public class BPackageManagerService extends IBPackageManagerService.Stub impleme
 
         
         synchronized (mPackages) {
-            return mComponentResolver.queryActivities(intent, resolvedType, flags, userId);
+            return dropDisabled(mComponentResolver.queryActivities(intent, resolvedType, flags, userId), flags);
         }
+    }
+
+    // Android leaves components declared android:enabled="false" out of intent
+    // queries unless the caller asks for them. Kept in, a disabled launcher alias
+    // can be picked as the app's entry point - F-Droid opened on its hidden
+    // "panic" calculator instead of its main screen.
+    private static List<ResolveInfo> dropDisabled(List<ResolveInfo> resolves, int flags) {
+        if (resolves == null || (flags & PackageManager.MATCH_DISABLED_COMPONENTS) != 0) {
+            return resolves;
+        }
+        List<ResolveInfo> enabled = new ArrayList<>(resolves.size());
+        for (ResolveInfo ri : resolves) {
+            if (ri.activityInfo == null || ri.activityInfo.enabled) {
+                enabled.add(ri);
+            }
+        }
+        return enabled;
     }
 
     @Override
@@ -445,8 +483,8 @@ public class BPackageManagerService extends IBPackageManagerService.Stub impleme
                 if (bPackageSettings != null) {
                     final BPackage pkg = bPackageSettings.pkg;
 
-                    result = mComponentResolver.queryActivities(
-                            intent, resolvedType, flags, pkg.activities, userId);
+                    result = dropDisabled(mComponentResolver.queryActivities(
+                            intent, resolvedType, flags, pkg.activities, userId), flags);
                 }
                 if (result == null || result.size() == 0) {
                     

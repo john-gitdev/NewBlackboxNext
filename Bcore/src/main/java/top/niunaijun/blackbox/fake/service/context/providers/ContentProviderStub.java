@@ -75,6 +75,8 @@ public class ContentProviderStub extends ClassInvocationStub implements BContent
         }
         
         
+        AttributionSourceUtils.stampGuestCaller(args);
+
         methodName = method.getName();
         if (methodName.equals("query") || methodName.equals("insert") || 
             methodName.equals("update") || methodName.equals("delete") || 

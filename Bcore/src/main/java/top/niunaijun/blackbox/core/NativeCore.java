@@ -1,17 +1,22 @@
 package top.niunaijun.blackbox.core;
 
 
+import android.os.Binder;
 import android.os.Process;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.Keep;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import dalvik.system.DexFile;
 import top.niunaijun.blackbox.BlackBoxCore;
 import top.niunaijun.blackbox.app.BActivityThread;
+import top.niunaijun.blackbox.entity.AppConfig;
 import top.niunaijun.blackbox.utils.compat.DexFileCompat;
 
 import top.niunaijun.blackbox.core.system.JarManager;
@@ -39,6 +44,68 @@ public class NativeCore {
     public static native boolean disableResourceLoading();
 
 
+    private static final class Caller {
+        final int bUid;
+        final long expiresAt;
+
+        Caller(int bUid, long expiresAt) {
+            this.bUid = bUid;
+            this.expiresAt = expiresAt;
+        }
+    }
+
+    // What getCallerBUid returns when it can't tell - a oneway call carries no pid - and
+    // when the caller is one of BlackBox's own processes, not a guest.
+    private static final int CALLER_UNKNOWN = -1;
+    private static final int CALLER_HOST = -2;
+
+    // Calling pid to the virtual uid of the guest app in that process, or CALLER_HOST.
+    // Entries expire: a guest isn't known to the server until it has finished starting,
+    // and pids are eventually reused.
+    private static final Map<Integer, Caller> sCallers = new ConcurrentHashMap<>();
+    private static final long GUEST_TTL_MS = 60_000;
+    private static final long HOST_TTL_MS = 5_000;
+    private static final ThreadLocal<Boolean> sLookingUp = new ThreadLocal<>();
+
+    // Every guest shares the host's uid, so the uid Binder reports can't say which app is
+    // calling; the pid can, since the server knows which app each process hosts. Without
+    // this, a guest serving others (Play services) saw one fixed caller - whichever app
+    // started its process - so its first-party checks turned real Google apps away and
+    // its content providers failed Android's AttributionSource check.
+    private static int getCallerBUid() {
+        if (!BlackBoxCore.get().isBlackProcess()) {
+            return CALLER_UNKNOWN;
+        }
+        int pid = Binder.getCallingPid();
+        if (pid <= 0) {
+            return CALLER_UNKNOWN;
+        }
+        if (pid == Process.myPid()) {
+            AppConfig config = BActivityThread.getAppConfig();
+            return config == null ? CALLER_UNKNOWN : config.buid;
+        }
+        long now = SystemClock.uptimeMillis();
+        Caller cached = sCallers.get(pid);
+        if (cached != null && cached.expiresAt > now) {
+            return cached.bUid;
+        }
+        // The lookup is itself a binder call; don't recurse through it.
+        if (sLookingUp.get() != null) {
+            return CALLER_UNKNOWN;
+        }
+        sLookingUp.set(Boolean.TRUE);
+        try {
+            int bUid = BlackBoxCore.getBActivityManager().getBUidByPid(pid);
+            Caller caller = bUid > 0
+                    ? new Caller(bUid, now + GUEST_TTL_MS)
+                    : new Caller(CALLER_HOST, now + HOST_TTL_MS);
+            sCallers.put(pid, caller);
+            return caller.bUid;
+        } finally {
+            sLookingUp.remove();
+        }
+    }
+
     @Keep
     public static int getCallingUid(int origCallingUid) {
         try {
@@ -61,8 +128,16 @@ public class NativeCore {
                 if (appPackageName != null && appPackageName.equals("com.google.android.webview")){
                     return Process.myUid();
                 }
-                
-                
+
+                int callerBUid = getCallerBUid();
+                if (callerBUid > 0) {
+                    return callerBUid;
+                }
+                // BlackBox's own processes stamp their real uid, so that's what matches.
+                if (callerBUid == CALLER_HOST) {
+                    return origCallingUid;
+                }
+
                 try {
                     int callingBUid = BlackBoxCore.getCallingBUid();
                     if (callingBUid > 0 && callingBUid < Process.LAST_APPLICATION_UID) {

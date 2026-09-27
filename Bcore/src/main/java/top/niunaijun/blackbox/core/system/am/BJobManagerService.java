@@ -40,7 +40,8 @@ public class BJobManagerService extends IBJobManagerService.Stub implements ISys
         intent.setComponent(componentName);
         ResolveInfo resolveInfo = BPackageManagerService.get().resolveService(intent, PackageManager.GET_META_DATA, null, userId);
         if (resolveInfo == null) {
-            return info;
+            // Unchanged, the job still names the guest's service and the system rejects it.
+            return null;
         }
         ServiceInfo serviceInfo = resolveInfo.serviceInfo;
         ProcessRecord processRecord = BProcessManagerService.get().findProcessRecord(serviceInfo.packageName, serviceInfo.processName, userId);

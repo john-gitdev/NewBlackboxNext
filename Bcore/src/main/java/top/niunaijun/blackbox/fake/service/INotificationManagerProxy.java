@@ -69,7 +69,7 @@ public class INotificationManagerProxy extends BinderInvocationStub {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
             List<NotificationChannel> notificationChannels = BNotificationManager.get().getNotificationChannels(BActivityThread.getAppPackageName());
-            return ParceledListSliceCompat.create(notificationChannels);
+            return ParceledListSliceCompat.createFor(method, notificationChannels);
         }
     }
 
@@ -174,7 +174,7 @@ public class INotificationManagerProxy extends BinderInvocationStub {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
             List<NotificationChannelGroup> notificationChannelGroups = BNotificationManager.get().getNotificationChannelGroups(BActivityThread.getAppPackageName());
-            return ParceledListSliceCompat.create(notificationChannelGroups);
+            return ParceledListSliceCompat.createFor(method, notificationChannelGroups);
         }
     }
 }

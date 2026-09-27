@@ -82,7 +82,9 @@ public class BProcessManagerService implements ISystemService {
             app.userId = userId;
 
             bProcess.put(processName, app);
-            mPidsSelfLocked.add(app);
+            synchronized (mPidsSelfLocked) {
+                mPidsSelfLocked.add(app);
+            }
 
             synchronized (mProcessMap) {
                 mProcessMap.put(buid, bProcess);
@@ -90,7 +92,9 @@ public class BProcessManagerService implements ISystemService {
             if (!initAppProcessL(app)) {
                 
                 bProcess.remove(processName);
-                mPidsSelfLocked.remove(app);
+                synchronized (mPidsSelfLocked) {
+                    mPidsSelfLocked.remove(app);
+                }
                 app = null;
             } else {
                 app.pid = getPid(BlackBoxCore.getContext(), ProxyManifest.getProcessName(app.bpid));
@@ -199,7 +203,9 @@ public class BProcessManagerService implements ISystemService {
                     mProcessMap.remove(record.buid);
                 }
             }
-            mPidsSelfLocked.remove(record);
+            synchronized (mPidsSelfLocked) {
+                mPidsSelfLocked.remove(record);
+            }
 
             removeProc(record);
             BNotificationManagerService.get().deletePackageNotification(record.getPackageName(), record.userId);
@@ -244,7 +250,9 @@ public class BProcessManagerService implements ISystemService {
                 return;
             for (ProcessRecord value : process.values()) {
                 value.kill();
-                mPidsSelfLocked.remove(value);
+                synchronized (mPidsSelfLocked) {
+                    mPidsSelfLocked.remove(value);
+                }
             }
             mProcessMap.remove(buid);
         }

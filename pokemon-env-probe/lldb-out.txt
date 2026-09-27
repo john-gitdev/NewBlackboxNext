@@ -1,0 +1,30 @@
+(lldb) command source -s 0 'C:\Users\johnw\repos\NewBlackbox\pokemon-env-probe\capture_boot.lldb'
+Executing commands in 'C:\Users\johnw\repos\NewBlackbox\pokemon-env-probe\capture_boot.lldb'.
+(lldb) gdb-remote 5039
+Process 30727 stopped
+* thread #15, name = 'GoogleApiHandle', stop reason = signal SIGSEGV: address not mapped to object (fault address: 0x0)
+    frame #0: 0x0000000048048a54
+->  0x48048a54: ldr    x21, [x21]
+    0x48048a58: mov    x22, x1
+    0x48048a5c: ldr    w0, [x1]
+    0x48048a60: ldr    x0, [x0, #0x350]
+  thread #32, name = 'Firebase Backgr', stop reason = signal SIGCONT
+    frame #0: 0x00000076cd0effc8
+->  0x76cd0effc8: cbz    x0, 0x76cd0effd8
+    0x76cd0effcc: cmn    x0, #0xfff
+    0x76cd0effd0: b.hs   0x76cd0c4890
+    0x76cd0effd4: ret    
+(lldb) command script import C:/Users/johnw/repos/NewBlackbox/pokemon-env-probe/capture_boot.py
+(lldb) script capture_boot.run(lldb.debugger)
+SET BOOT_CALL Breakpoint 1: address = 0x00000072e4371644 
+SET BOOT_RETURN Breakpoint 2: address = 0x00000072e4371648 
+SET TPR_ENTRY Breakpoint 3: address = 0x00000072e5447f34 
+NAME         PASS   STOP   NOTIFY
+===========  =====  =====  ======
+SIGSEGV      true   false  false
+NAME         PASS   STOP   NOTIFY
+===========  =====  =====  ======
+SIGBUS       true   false  false
+NAME         PASS   STOP   NOTIFY
+===========  =====  =====  ======
+SIGCONT      true   false  false

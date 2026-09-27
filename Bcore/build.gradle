@@ -35,7 +35,7 @@ android {
         ndkBuild {
             path 'src/main/cpp/Android.mk'
         }
-        ndkVersion = "29.0.13846066"
+        ndkVersion = "28.2.13676358"
     }
 
     compileOptions {
@@ -97,6 +97,7 @@ tasks.withType(Javadoc) {
 
 
 dependencies {
+    testImplementation libs.junit
     implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
   implementation 'com.google.android.material:material:1.3.0'
     implementation(project(":black-reflection"))
@@ -110,4 +111,65 @@ dependencies {
 
 
     
+}
+
+// microG (microg.org) provides Google services inside the container; see GmsCore. The
+// release APKs are pinned by SHA-256, downloaded once into .gradle/microg, and packed as
+// assets/microg/*.apk. They aren't in git: the Services APK is over GitHub's 100 MB limit.
+abstract class DownloadMicroG extends DefaultTask {
+    @Input abstract Property<String> getBaseUrl()
+    @Input abstract MapProperty<String, String> getApks()
+    @Internal abstract DirectoryProperty getCacheDir()
+    @OutputDirectory abstract DirectoryProperty getOutputDir()
+
+    @TaskAction
+    void run() {
+        def cache = cacheDir.get().asFile
+        def out = new File(outputDir.get().asFile, "microg")
+        cache.mkdirs()
+        out.mkdirs()
+        apks.get().each { name, sha256 ->
+            def cached = new File(cache, name)
+            if (!cached.exists() || sha256Of(cached) != sha256) {
+                logger.lifecycle("Downloading microG $name")
+                new URL("${baseUrl.get()}/$name").withInputStream { input ->
+                    cached.withOutputStream { it << input }
+                }
+                def actual = sha256Of(cached)
+                if (actual != sha256) {
+                    cached.delete()
+                    throw new GradleException("microG $name has SHA-256 $actual, expected $sha256")
+                }
+            }
+            java.nio.file.Files.copy(cached.toPath(), new File(out, name).toPath(),
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+        }
+    }
+
+    static String sha256Of(File file) {
+        def digest = java.security.MessageDigest.getInstance("SHA-256")
+        file.withInputStream { input ->
+            byte[] buffer = new byte[1 << 16]
+            int n
+            while ((n = input.read(buffer)) > 0) {
+                digest.update(buffer, 0, n)
+            }
+        }
+        return digest.digest().encodeHex().toString()
+    }
+}
+
+def downloadMicroG = tasks.register("downloadMicroG", DownloadMicroG) {
+    baseUrl = "https://github.com/microg/GmsCore/releases/download/v0.3.16.252432"
+    apks = [
+            "com.google.android.gms-252432032.apk": "169a53df557e6577322e7cc8aa3389cb82b3d6408dd162433cc94f1d084a73d4",
+            "com.android.vending-84022632.apk"    : "638f712d267bb9bc57311acbc49e769932bdea9f7fdda26a6ea98b921e632916",
+    ]
+    cacheDir = rootProject.layout.projectDirectory.dir(".gradle/microg")
+}
+
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        variant.sources.assets?.addGeneratedSourceDirectory(downloadMicroG) { it.outputDir }
+    }
 }

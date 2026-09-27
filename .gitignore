@@ -20,5 +20,6 @@
 /captures
 .externalNativeBuild
 .cxx
+__pycache__/
 local.properties
 /app/release/

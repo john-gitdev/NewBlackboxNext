@@ -448,4 +448,13 @@ public class BActivityManager extends BlackManager<IBActivityManagerService> {
         }
         return -1;
     }
+
+    // The virtual uid of the guest app running in that process, or -1 if it hosts none.
+    public int getBUidByPid(int pid) {
+        try {
+            return getService().getBUidByPid(pid);
+        } catch (Exception e) {
+            return -1;
+        }
+    }
 }

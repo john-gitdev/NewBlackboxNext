@@ -1,0 +1,1424 @@
+{
+  "schema": 6,
+  "timestampUtcMs": 1790486785816,
+  "lifecycle": [
+    "onCreate@517227159",
+    "onStart@517227194",
+    "onResume@517227205"
+  ],
+  "identity": {
+    "packageName": "dev.codex.envprobe",
+    "opPackageName": "dev.codex.envprobe",
+    "pid": 14374,
+    "androidUid": 10356,
+    "osGetuid": 10356,
+    "osGetgid": 10356,
+    "appProcessName": "dev.codex.envprobe",
+    "activityManagerProcess": "dev.codex.envprobe uid=10356 packages=[dev.codex.envprobe]",
+    "pmPackageUid": 10356
+  },
+  "applicationInfo": {
+    "contextApplicationInfo": {
+      "packageName": "dev.codex.envprobe",
+      "processName": "dev.codex.envprobe",
+      "uid": 10356,
+      "dataDir": "/data/user/0/dev.codex.envprobe",
+      "deviceProtectedDataDir": "/data/user_de/0/dev.codex.envprobe",
+      "sourceDir": "/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk",
+      "publicSourceDir": "/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk",
+      "nativeLibraryDir": "/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/lib/arm64",
+      "splitSourceDirs": [],
+      "splitPublicSourceDirs": [],
+      "splitNames": [],
+      "enabled": true,
+      "flags": 545799750,
+      "targetSdkVersion": 35,
+      "minSdkVersion": 24,
+      "className": null,
+      "taskAffinity": "dev.codex.envprobe"
+    },
+    "pmApplicationInfo": {
+      "packageName": "dev.codex.envprobe",
+      "processName": "dev.codex.envprobe",
+      "uid": 10356,
+      "dataDir": "/data/user/0/dev.codex.envprobe",
+      "deviceProtectedDataDir": "/data/user_de/0/dev.codex.envprobe",
+      "sourceDir": "/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk",
+      "publicSourceDir": "/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk",
+      "nativeLibraryDir": "/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/lib/arm64",
+      "splitSourceDirs": [],
+      "splitPublicSourceDirs": [],
+      "splitNames": [],
+      "enabled": true,
+      "flags": 545799750,
+      "targetSdkVersion": 35,
+      "minSdkVersion": 24,
+      "className": null,
+      "taskAffinity": "dev.codex.envprobe"
+    }
+  },
+  "directories": {
+    "dataDir": "/data/user/0/dev.codex.envprobe",
+    "filesDir": "/data/user/0/dev.codex.envprobe/files",
+    "cacheDir": "/data/user/0/dev.codex.envprobe/cache",
+    "codeCacheDir": "/data/user/0/dev.codex.envprobe/code_cache",
+    "noBackupFilesDir": "/data/user/0/dev.codex.envprobe/no_backup",
+    "externalFilesDir": "/storage/emulated/0/Android/data/dev.codex.envprobe/files",
+    "deviceProtectedContextDataDir": "/data/user_de/0/dev.codex.envprobe",
+    "contextIsDeviceProtectedStorage": false,
+    "filesDirCanonical": "/data/data/dev.codex.envprobe/files",
+    "dataDirExists": true,
+    "dataDirCanRead": true,
+    "dataDirCanWrite": true,
+    "filesDirStat": {
+      "device": 65087,
+      "inode": 34538,
+      "uid": 10356,
+      "gid": 10356
+    },
+    "isolationMarker": {
+      "path": "/data/user/0/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "previous": "pid=7256;uid=10356;time=1790483931739",
+      "written": "pid=14374;uid=10356;time=1790486785831",
+      "readBack": "pid=14374;uid=10356;time=1790486785831",
+      "logicalUserRead": "pid=14374;uid=10356;time=1790486785831",
+      "logicalDataRead": "pid=14374;uid=10356;time=1790486785831",
+      "logicalUserCanonical": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "logicalDataCanonical": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "kernelFdPath": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt"
+    },
+    "userUnlocked": true,
+    "deviceProtectedMarker": {
+      "path": "/data/user_de/0/dev.codex.envprobe/files/envprobe-device-marker.txt",
+      "prior": null,
+      "readBack": "pid=14374;time=1790486785834",
+      "canonical": "/data/user_de/0/dev.codex.envprobe/files/envprobe-device-marker.txt"
+    },
+    "directBootEvents": null
+  },
+  "nativeFilesystem": {
+    "libraryName": "libenvprobe.so",
+    "backingPath": {
+      "path": "/data/user/0/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "openRead": "pid=14374;uid=10356;time=1790486785831",
+      "openatRead": "pid=14374;uid=10356;time=1790486785831",
+      "stat": "dev=65087 ino=1697491 uid=10356 mode=100600",
+      "lstat": "dev=65087 ino=1697491 uid=10356 mode=100600",
+      "readlink": "ERR:22",
+      "realpath": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "procSelfFdReadlink": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt"
+    },
+    "logicalPath": {
+      "path": "/data/user/0/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "openRead": "pid=14374;uid=10356;time=1790486785831",
+      "openatRead": "pid=14374;uid=10356;time=1790486785831",
+      "stat": "dev=65087 ino=1697491 uid=10356 mode=100600",
+      "lstat": "dev=65087 ino=1697491 uid=10356 mode=100600",
+      "readlink": "ERR:22",
+      "realpath": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "procSelfFdReadlink": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt"
+    },
+    "deviceProtectedPath": {
+      "path": "/data/user_de/0/dev.codex.envprobe/files/envprobe-device-marker.txt",
+      "openRead": "pid=14374;time=1790486785834",
+      "openatRead": "pid=14374;time=1790486785834",
+      "stat": "dev=65087 ino=1698950 uid=10356 mode=100600",
+      "lstat": "dev=65087 ino=1698950 uid=10356 mode=100600",
+      "readlink": "ERR:22",
+      "realpath": "/data/user_de/0/dev.codex.envprobe/files/envprobe-device-marker.txt",
+      "procSelfFdReadlink": "/data/user_de/0/dev.codex.envprobe/files/envprobe-device-marker.txt"
+    }
+  },
+  "packageManager": {
+    "self": {
+      "packageName": "dev.codex.envprobe",
+      "versionName": "1.0",
+      "versionCode": 1,
+      "applicationInfo": {
+        "packageName": "dev.codex.envprobe",
+        "processName": "dev.codex.envprobe",
+        "uid": 10356,
+        "dataDir": "/data/user/0/dev.codex.envprobe",
+        "deviceProtectedDataDir": "/data/user_de/0/dev.codex.envprobe",
+        "sourceDir": "/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk",
+        "publicSourceDir": "/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk",
+        "nativeLibraryDir": "/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/lib/arm64",
+        "splitSourceDirs": [],
+        "splitPublicSourceDirs": [],
+        "splitNames": [],
+        "enabled": true,
+        "flags": 545799750,
+        "targetSdkVersion": 35,
+        "minSdkVersion": 24,
+        "className": null,
+        "taskAffinity": "dev.codex.envprobe"
+      },
+      "services": [
+        {
+          "packageName": "dev.codex.envprobe",
+          "name": "dev.codex.envprobe.ProbeService",
+          "processName": "dev.codex.envprobe:probe_service",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        }
+      ],
+      "providers": [
+        {
+          "packageName": "dev.codex.envprobe",
+          "name": "dev.codex.envprobe.ProbeProvider",
+          "authority": "dev.codex.envprobe.provider",
+          "exported": true,
+          "enabled": true,
+          "processName": "dev.codex.envprobe:probe_provider"
+        }
+      ]
+    },
+    "vending": {
+      "packageName": "com.android.vending",
+      "versionName": "53.2.23-34 [0] [PR] 980945147",
+      "versionCode": 85322340,
+      "applicationInfo": {
+        "packageName": "com.android.vending",
+        "processName": "com.android.vending",
+        "uid": 10135,
+        "dataDir": "/data/user/0/com.android.vending",
+        "deviceProtectedDataDir": "/data/user_de/0/com.android.vending",
+        "sourceDir": "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/base.apk",
+        "publicSourceDir": "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/base.apk",
+        "nativeLibraryDir": "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/lib/arm64",
+        "splitSourceDirs": [
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_config.arm64_v8a.apk",
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_config.en.apk",
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_phonesky_data_loader.apk",
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_phonesky_data_loader.config.arm64_v8a.apk",
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_phonesky_webrtc_native_lib.apk",
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_phonesky_webrtc_native_lib.config.arm64_v8a.apk"
+        ],
+        "splitPublicSourceDirs": [
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_config.arm64_v8a.apk",
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_config.en.apk",
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_phonesky_data_loader.apk",
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_phonesky_data_loader.config.arm64_v8a.apk",
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_phonesky_webrtc_native_lib.apk",
+          "/data/app/~~_yK3j9KdH5bRIFI-57EUuA==/com.android.vending-mfwcy6IyawwYYm_bPlSO1Q==/split_phonesky_webrtc_native_lib.config.arm64_v8a.apk"
+        ],
+        "splitNames": [
+          "config.arm64_v8a",
+          "config.en",
+          "phonesky_data_loader",
+          "phonesky_data_loader.config.arm64_v8a",
+          "phonesky_webrtc_native_lib",
+          "phonesky_webrtc_native_lib.config.arm64_v8a"
+        ],
+        "enabled": true,
+        "flags": 550158021,
+        "targetSdkVersion": 37,
+        "minSdkVersion": 34,
+        "className": "com.google.android.finsky.application.classic.ClassicApplication",
+        "taskAffinity": "com.android.vending"
+      },
+      "services": [
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.installservice.AppRecoveryUpdateService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.services.LicensingService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": "com.android.vending.CHECK_LICENSE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.licensingservice.background.BackgroundLicensingService",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": "com.android.vending.CHECK_LICENSE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.setup.RestoreServiceV2",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.setup.VpaService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.billing.iab.InAppBillingService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.billing.legacyservice.BillingAccountService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": "com.android.vending.billing.BILLING_ACCOUNT_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.setup.dse.impl.DseService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": "com.google.android.finsky.permission.DSE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.setup.PlaySetupServiceV2",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": "com.android.vending.setup.PLAY_SETUP_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.setup.p2p.PlayP2pRestoreService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": "com.android.vending.setup.PLAY_SETUP_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.assetmoduleservice.AssetModuleService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.splitinstallservice.SplitInstallService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.services.MarketCatalogService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.services.ReviewsService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.contentfilterui.ContentFiltersService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.services.DetailsService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.appdiscoveryservice.AppDiscoveryService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": "com.android.vending.appdiscoveryservice.permission.ACCESS_APP_DISCOVERY_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.recoverymode.safeselfupdate.SafeSelfUpdateService",
+          "processName": "com.android.vending:recovery_mode",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.emergencyselfupdate.EmergencySelfUpdateService",
+          "processName": "com.android.vending:recovery_mode",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.foregroundcoordinator.impl.ForegroundCoordinatorService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.multiusercoordinator.MultiUserCoordinatorService",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.crossprofileinstallerservice.CrossProfileInstallerService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.crossprofile.ProfileStateService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.services.PlayGearheadService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.services.PackageUpdateService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.services.AdIdListener",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.zapp.PlayModuleService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.installapi.PlayInstallService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.installservice.InstallService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.installservice.DevTriggeredUpdateService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.instantapps.PhenotypeUpdateService",
+          "processName": "com.android.vending:instant_app_installer",
+          "exported": false,
+          "enabled": true,
+          "permission": "android.permission.BIND_JOB_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.instantapps.InstantAppsLoggingService",
+          "processName": "com.android.vending:instant_app_installer",
+          "exported": false,
+          "enabled": true,
+          "permission": "android.permission.BIND_JOB_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.instantapps.statussync.EnabledStatusSyncService",
+          "processName": "com.android.vending:instant_app_installer",
+          "exported": false,
+          "enabled": true,
+          "permission": "android.permission.BIND_JOB_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.externalreferrer.GetInstallReferrerService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.enterprisedevicereport.AppStatesService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.downloadservice.DownloadService",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.shellservice.ProdShellService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": "android.permission.DUMP"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.prewarmservice.PrewarmService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.ageverification.service.AgeSignalsService",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.appcontentservice.engage.AppEngageService",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.appcontentservice.engage.AppEngageServiceV2",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.apperrors.PlayAppErrorsService",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": "com.android.vending.APP_ERRORS_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.autoopen.notification.AutoOpenSchedulerService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.billing.service.BillingService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.crossdevicepromptservice.CrossDevicePromptService",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.crossprofile.impl.CrossProfileService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.crossprofileinstallerservice.CrossProfileInstallerAsUserService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.crossprofileinstallerservice.main.CrossProfileInstallerAsUserService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.crossprofileinstallerservice.main.CrossProfileInstallerService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.dataloader.ProductionDataLoaderService",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.dataloader.PhoneskyDataLoaderService",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.dataprojectionapiservice.DataProjectionApiService",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.deku.controller.DekuBrokerService",
+          "processName": "com.android.vending:quick_launch",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.deku.controller.GpDekuBrokerService",
+          "processName": "com.android.vending:quick_launch",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.deku.dashboard.gpproxy.service.GpDekuRenderService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.developergroupidinfo.DeveloperGroupIdInfoService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": "com.google.android.finsky.permission.DEVELOPER_GROUP_ID_INFO"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.dfenotification.impl.PhoneskyFirebaseMessagingService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.downloadmanager.notification.service.DownloadManagerNotificationService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.expressintegrityservice.ExpressIntegrityService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.inappreviewservice.InAppReviewService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.inlinedetails.hpoa.service.HpoaService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.inlinedetails.hsdp.service.HsdpService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.inlinedetails.lmd.service.LmdOverlayService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.inlinevideo.ytplayercontroller.notification.impl.DekuVideoForegroundService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.integrityservice.IntegrityService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.ipcservers.crossuser.extrapackageinfo.ExtraPackageInfoEndpointService",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.ipcservers.external.appcontentservice.AppContentGrpcServerAndroidService",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.ipcservers.external.choiceengine.ChoiceEngineGipcEndpointService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.ipcservers.external.enterprise.EnterpriseDeviceManagementGipcEndpointService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.ipcservers.external.installservice.PlayInstallServiceGrpcEndpoint",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.ipcservers.external.permissions.PermissionsEndpointService",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.ipcservers.external.unifiedappstatus.UnifiedAppStatusEndpointService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.ipcservers.instantapps.InstantAppsGrpcServerAndroidService",
+          "processName": "com.android.vending:instant_app_installer",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.ipcservers.main.MainGrpcServerAndroidService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.navi.service.notification.NaviFgs",
+          "processName": "com.android.vending:quick_launch",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.playconnect.networklayer.wearnetwork.service.WearNetworkListenerService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.rubiks.cubes.widget.remoteviews.contentforward.ContentForwardWidgetNavigationalViewsService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": "android.permission.BIND_REMOTEVIEWS"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.rubiks.cubes.widget.remoteviews.contentforward.ContentForwardWidgetCubesContentViewService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": "android.permission.BIND_REMOTEVIEWS"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.rubiks.cubes.widget.remoteviews.contentforward.ContentForwardWidgetCubesListViewsService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": "android.permission.BIND_REMOTEVIEWS"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.scheduler.process.backgroundimpl.PhoneskyJobServiceBackground",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": "android.permission.BIND_JOB_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.scheduler.process.mainimpl.PhoneskyJobServiceMain",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": "android.permission.BIND_JOB_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.scheduler.process.quicklaunchimpl.PhoneskyJobServiceQuickLaunch",
+          "processName": "com.android.vending:quick_launch",
+          "exported": false,
+          "enabled": true,
+          "permission": "android.permission.BIND_JOB_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.securedatatransfer.antitamperservice.AntiTamperKeyTransferService",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.updateprompt.PlayAppFilteredErrorsService",
+          "processName": "com.android.vending:quick_launch",
+          "exported": true,
+          "enabled": true,
+          "permission": "com.android.vending.APP_ERRORS_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.verifier.apkanalysis.service.ApkContentsScanService",
+          "processName": "com.android.vending:isolated_service",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.verifier.impl.api.safetynet.PackageVerificationApiService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.verifier.impl.service.impl.PackageVerificationService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.verifier.impl.settings.SingleUserSettingsService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.verifier.impl.settings.SingleUserSettingsBackgroundService",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.verifier.impl.settings.GlobalSharedPrefService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.verifier.impl.settings.GlobalSharedPrefBackgroundService",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "androidx.work.multiprocess.RemoteWorkManagerService",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "androidx.work.impl.background.systemjob.SystemJobService",
+          "processName": "com.android.vending:background",
+          "exported": true,
+          "enabled": true,
+          "permission": "android.permission.BIND_JOB_SERVICE"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "androidx.work.impl.foreground.SystemForegroundService",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.workmanager.backgroundimpl.RemoteWorkerServiceBackground",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.verifier.backport.impl.system.BackportVerificationSystemService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.firebase.components.ComponentDiscoveryService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.gms.tapandpay.issuer.GeneratePaymentCredentialsService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": "com.google.android.gms.permission.SEND_ANDROID_PAY_DATA"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "org.chromium.customtabsclient.shared.KeepAliveService",
+          "processName": "com.android.vending",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "android.support.v7.app.AppLocalesMetadataHolderService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": false,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.frameworks.client.data.android.server.play.BackgroundProcessEndpointService",
+          "processName": "com.android.vending:background",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.frameworks.client.data.android.server.play.MainProcessEndpointService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.frameworks.client.data.android.server.play.QuickLaunchProcessEndpointService",
+          "processName": "com.android.vending:quick_launch",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.firebase.messaging.FirebaseMessagingService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "androidx.room.MultiInstanceInvalidationService",
+          "processName": "com.android.vending",
+          "exported": false,
+          "enabled": true,
+          "permission": null
+        }
+      ],
+      "providers": [
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.setup.p2p.CachedPackageContentProvider",
+          "authority": "com.google.android.finsky.setup.p2p.CachedPackageContentProvider",
+          "exported": true,
+          "enabled": true,
+          "processName": "com.android.vending"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.securityhub.SecurityHubContentProvider",
+          "authority": "com.google.android.finsky.securityhub.provider",
+          "exported": true,
+          "enabled": true,
+          "processName": "com.android.vending"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.searchsuggestions.RecentSuggestionsProvider",
+          "authority": "com.google.android.finsky.RecentSuggestionsProvider",
+          "exported": true,
+          "enabled": true,
+          "processName": "com.android.vending"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.addtohomescreen.AddToHomeScreenSettingProvider",
+          "authority": "com.android.vending.addtohomescreen",
+          "exported": true,
+          "enabled": true,
+          "processName": "com.android.vending"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.dumpsys.backgroundimpl.BackgroundDumpsysContentProvider",
+          "authority": "com.google.android.finsky.dumpsys.backgroundimpl.BackgroundDumpsysContentProvider",
+          "exported": false,
+          "enabled": true,
+          "processName": "com.android.vending:background"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.dumpsys.mainimpl.MainDumpsysContentProvider",
+          "authority": "com.google.android.finsky.dumpsys.mainimpl.MainDumpsysContentProvider",
+          "exported": false,
+          "enabled": true,
+          "processName": "com.android.vending"
+        },
+        {
+          "packageName": "com.android.vending",
+          "name": "com.google.android.finsky.fileprovider.FinskyFileProvider",
+          "authority": "com.google.android.finsky.FileProvider",
+          "exported": false,
+          "enabled": true,
+          "processName": "com.android.vending"
+        }
+      ]
+    },
+    "gms": {
+      "packageName": "com.google.android.gms",
+      "versionName": "26.34.36 (260400-981326859)",
+      "versionCode": 263436035,
+      "applicationInfo": {
+        "packageName": "com.google.android.gms",
+        "processName": "com.google.android.gms",
+        "uid": 10178,
+        "dataDir": "/data/user/0/com.google.android.gms",
+        "deviceProtectedDataDir": "/data/user_de/0/com.google.android.gms",
+        "sourceDir": "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/base.apk",
+        "publicSourceDir": "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/base.apk",
+        "nativeLibraryDir": "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/lib/arm64",
+        "splitSourceDirs": [
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_AdsDynamite_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_CronetDynamite_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_DynamiteLoader_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_DynamiteModulesA_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_DynamiteModulesC_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_GoogleCertificates_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_MapsDynamite_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_MeasurementDynamite_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_config.en.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_config.xxxhdpi.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_maps_core_dynamite_ondemand.apk"
+        ],
+        "splitPublicSourceDirs": [
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_AdsDynamite_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_CronetDynamite_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_DynamiteLoader_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_DynamiteModulesA_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_DynamiteModulesC_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_GoogleCertificates_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_MapsDynamite_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_MeasurementDynamite_installtime.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_config.en.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_config.xxxhdpi.apk",
+          "/data/app/~~EgdY-J4q8tU9FuYztBZgVg==/com.google.android.gms-beRNrg2P8xz5_E9DRcXNKQ==/split_maps_core_dynamite_ondemand.apk"
+        ],
+        "splitNames": [
+          "AdsDynamite_installtime",
+          "CronetDynamite_installtime",
+          "DynamiteLoader_installtime",
+          "DynamiteModulesA_installtime",
+          "DynamiteModulesC_installtime",
+          "GoogleCertificates_installtime",
+          "MapsDynamite_installtime",
+          "MeasurementDynamite_installtime",
+          "config.en",
+          "config.xxxhdpi",
+          "maps_core_dynamite_ondemand"
+        ],
+        "enabled": true,
+        "flags": -1597325627,
+        "targetSdkVersion": 37,
+        "minSdkVersion": 35,
+        "className": "co.g.App",
+        "taskAffinity": "com.google.android.gms"
+      },
+      "services": [],
+      "providers": []
+    },
+    "peer": {
+      "packageName": "dev.codex.envpeer",
+      "versionName": "1.0",
+      "versionCode": 1,
+      "applicationInfo": {
+        "packageName": "dev.codex.envpeer",
+        "processName": "dev.codex.envpeer",
+        "uid": 10357,
+        "dataDir": "/data/user/0/dev.codex.envpeer",
+        "deviceProtectedDataDir": "/data/user_de/0/dev.codex.envpeer",
+        "sourceDir": "/data/app/~~HVTMY-D1BHEhzsEDWHqMZA==/dev.codex.envpeer-fSlKb2SDEOHuyIDS_am3RA==/base.apk",
+        "publicSourceDir": "/data/app/~~HVTMY-D1BHEhzsEDWHqMZA==/dev.codex.envpeer-fSlKb2SDEOHuyIDS_am3RA==/base.apk",
+        "nativeLibraryDir": "/data/app/~~HVTMY-D1BHEhzsEDWHqMZA==/dev.codex.envpeer-fSlKb2SDEOHuyIDS_am3RA==/lib/arm64",
+        "splitSourceDirs": [],
+        "splitPublicSourceDirs": [],
+        "splitNames": [],
+        "enabled": true,
+        "flags": 545799750,
+        "targetSdkVersion": 35,
+        "minSdkVersion": 24,
+        "className": null,
+        "taskAffinity": "dev.codex.envpeer"
+      },
+      "services": [
+        {
+          "packageName": "dev.codex.envpeer",
+          "name": "dev.codex.envpeer.PeerService",
+          "processName": "dev.codex.envpeer:service",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        }
+      ],
+      "providers": [
+        {
+          "packageName": "dev.codex.envpeer",
+          "name": "dev.codex.envpeer.PeerProvider",
+          "authority": "dev.codex.envpeer.provider",
+          "exported": true,
+          "enabled": true,
+          "processName": "dev.codex.envpeer:provider"
+        }
+      ]
+    },
+    "peerUid": 10357,
+    "installedPackagesCount": 134,
+    "installerPackageName": null,
+    "installSourceInfo": {
+      "initiating": "com.android.shell",
+      "installing": null,
+      "originating": null
+    },
+    "padResolve": {
+      "packageName": "com.android.vending",
+      "name": "com.google.android.finsky.assetmoduleservice.AssetModuleService",
+      "processName": "com.android.vending",
+      "exported": true,
+      "enabled": true,
+      "permission": null
+    },
+    "padQuery": [
+      {
+        "packageName": "com.android.vending",
+        "name": "com.google.android.finsky.assetmoduleservice.AssetModuleService",
+        "processName": "com.android.vending",
+        "exported": true,
+        "enabled": true,
+        "permission": null
+      }
+    ],
+    "ownProviderInfo": {
+      "packageName": "dev.codex.envprobe",
+      "name": "dev.codex.envprobe.ProbeProvider",
+      "authority": "dev.codex.envprobe.provider",
+      "exported": true,
+      "enabled": true,
+      "processName": "dev.codex.envprobe:probe_provider"
+    }
+  },
+  "permissionsAndAppOps": {
+    "cameraPermission": -1,
+    "readContactsPermission": -1,
+    "getAccountsPermission": -1,
+    "notificationsPermission": -1,
+    "readContactsAppOp": 1
+  },
+  "accounts": {
+    "getAccountsPermission": -1,
+    "authenticatorTypes": [
+      "com.google@com.google.android.gms",
+      "clockwork.accounts@com.google.android.gms"
+    ],
+    "googleAccountCount": 0
+  },
+  "binding": {
+    "resolveService": {
+      "packageName": "dev.codex.envprobe",
+      "name": "dev.codex.envprobe.ProbeService",
+      "processName": "dev.codex.envprobe:probe_service",
+      "exported": true,
+      "enabled": true,
+      "permission": null
+    },
+    "queryIntentServices": [
+      {
+        "packageName": "dev.codex.envprobe",
+        "name": "dev.codex.envprobe.ProbeService",
+        "processName": "dev.codex.envprobe:probe_service",
+        "exported": true,
+        "enabled": true,
+        "permission": null
+      }
+    ],
+    "bindResult": true,
+    "connectedAtElapsedMs": 517227319,
+    "component": "dev.codex.envprobe/dev.codex.envprobe.ProbeService",
+    "binderClass": "android.os.BinderProxy",
+    "descriptor": "dev.codex.envprobe.ProbeService",
+    "callerIdentity": {
+      "serviceCallingUid": 10356,
+      "serviceCallingPid": 14374,
+      "serviceProcessUid": 10356,
+      "serviceProcessPid": 14399
+    }
+  },
+  "peerBinding": {
+    "resolveService": {
+      "packageName": "dev.codex.envpeer",
+      "name": "dev.codex.envpeer.PeerService",
+      "processName": "dev.codex.envpeer:service",
+      "exported": true,
+      "enabled": true,
+      "permission": null
+    },
+    "bindResult": true,
+    "component": "dev.codex.envpeer/dev.codex.envpeer.PeerService",
+    "descriptor": "dev.codex.envpeer.PeerService",
+    "callerIdentity": {
+      "serviceCallingUid": 10356,
+      "serviceCallingPid": 14374,
+      "serviceProcessUid": 10357,
+      "serviceProcessPid": 14404
+    }
+  },
+  "provider": {
+    "query": {
+      "value": "probe-ok",
+      "callingUid": 10356,
+      "callingPid": 14374,
+      "processUid": 10356,
+      "processPid": 14507
+    }
+  },
+  "peerProvider": {
+    "query": {
+      "value": "peer-ok",
+      "callingUid": 10356,
+      "callingPid": 14374,
+      "processUid": 10357,
+      "processPid": 14523
+    }
+  },
+  "runtime": {
+    "sdk": 37,
+    "supportedAbis": [
+      "arm64-v8a"
+    ],
+    "manufacturer": "Google",
+    "model": "Pixel 7 Pro",
+    "fingerprint": "google/cheetah/cheetah:17/CP2A.260705.006/15641320:user/release-keys",
+    "classLoader": "dalvik.system.PathClassLoader[DexPathList[[zip file \"/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk\"],nativeLibraryDirectories=[/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/lib/arm64, /data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk!/lib/arm64-v8a, /system/lib64, /system_ext/lib64]]]",
+    "contextClassLoader": "dalvik.system.PathClassLoader[DexPathList[[zip file \"/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk\"],nativeLibraryDirectories=[/data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/lib/arm64, /data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk!/lib/arm64-v8a, /system/lib64, /system_ext/lib64]]]",
+    "javaLibraryPath": "/system/lib64:/system_ext/lib64",
+    "javaHome": "/apex/com.android.art",
+    "procCmdline": "dev.codex.envprobe                                                                                 ",
+    "mountNamespace": "mnt:[4026536674]",
+    "procStatus": [
+      "Name:\t.codex.envprobe",
+      "TracerPid:\t0",
+      "Uid:\t10356\t10356\t10356\t10356",
+      "Gid:\t10356\t10356\t10356\t10356"
+    ],
+    "procMapsSelected": [
+      "46000000-46004000 rw-p 00000000 00:00 0                                  [anon:dalvik-/data/misc/apexdata/...ork@com.android.location.provider.jar@classes.art]",
+      "6f2d4000-70888000 rw-p 00000000 00:00 0                                  [anon:dalvik-/data/misc/apexdata/com.android.art/dalvik-cache/boot.art]",
+      "70888000-70b8c000 r--p 00000000 fe:3f 256767                             /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot.oat",
+      "70b8c000-715d2000 r-xp 00304000 fe:3f 256767                             /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot.oat",
+      "715d8000-717b0000 rw-p 00000000 00:00 0                                  [anon:dalvik-/data/misc/apexdata/...id.art/dalvik-cache/boot-framework-adservices.art]",
+      "717b0000-717d8000 r--p 00000000 fe:3f 256591                             /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot-framework-adservices.oat",
+      "717d8000-71806000 r-xp 00028000 fe:3f 256591                             /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot-framework-adservices.oat",
+      "71808000-71809000 r--p 00058000 fe:3f 256591                             /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot-framework-adservices.oat",
+      "73cfa70000-73cfa72000 r-xp 0000c000 fe:3f 1963978                        /data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk",
+      "73cfa75000-73cfa76000 r--p 0000d000 fe:3f 1963978                        /data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk",
+      "73d6492000-73d649a000 r--p 00000000 fe:3f 257732                         /data/misc/apexdata/com.android.art/dalvik-cache/arm64/system@framework@com.android.location.provider.jar@classes.odex",
+      "73d649a000-73d64a1000 r-xp 00008000 fe:3f 257732                         /data/misc/apexdata/com.android.art/dalvik-cache/arm64/system@framework@com.android.location.provider.jar@classes.odex",
+      "73d64a2000-73d64a3000 r--p 00010000 fe:3f 257732                         /data/misc/apexdata/com.android.art/dalvik-cache/arm64/system@framework@com.android.location.provider.jar@classes.odex",
+      "7426d52000-7426f07000 r--p 00000000 fe:1a 55                             /apex/com.android.art/lib64/libart.so",
+      "7426f52000-742778a000 r-xp 00200000 fe:1a 55                             /apex/com.android.art/lib64/libart.so",
+      "7427952000-7427984000 r--p 00c00000 fe:1a 55                             /apex/com.android.art/lib64/libart.so",
+      "7427b52000-7427b56000 rw-p 00e00000 fe:1a 55                             /apex/com.android.art/lib64/libart.so",
+      "76f2ca6000-76f2ca7000 r--s 0001b000 fe:3f 1963978                        /data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk",
+      "76f4255000-76f4257000 r--s 00000000 fe:3f 271245                         /data/resource-cache/data@resource-cache@com.android.systemui-dynamic-hwlN.frro@idmap",
+      "76f4257000-76f4258000 r--s 00000000 fe:3f 271219                         /data/resource-cache/data@resource-cache@com.android.systemui-accent-TXAY.frro@idmap",
+      "76f42c0000-76f42c1000 r--s 00000000 fe:3f 271230                         /data/resource-cache/data@resource-cache@com.android.systemui-neutral-AbT8.frro@idmap",
+      "76f431e000-76f431f000 r--s 00000000 fe:3f 45535                          /data/resource-cache/product@overlay@NavigationBarModeGestural@NavigationBarModeGesturalOverlay.apk@idmap",
+      "76f431f000-76f4320000 r--s 00004000 fe:3f 1963978                        /data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk",
+      "76f4469000-76f446a000 r--p 00004000 fe:3f 251873                         /data/misc/apexdata/com.android.art/dalvik-cache/arm64/system@framework@com.android.location.provider.jar@classes.art",
+      "76f446a000-76f446b000 rw-p 00000000 fe:3f 191122                         /data/misc/apexdata/com.android.art/dalvik-cache/arm64/system@framework@com.android.location.provider.jar@classes.vdex",
+      "76f4802000-76f4803000 r--s 00000000 fe:3f 623                            /data/resource-cache/product@overlay@PixelConfigOverlay2021.apk@idmap",
+      "76f4805000-76f4806000 r--s 00000000 fe:3f 622                            /data/resource-cache/product@overlay@GlanceableHubConfigOverlay.apk@idmap",
+      "76f4808000-76f4809000 r--s 00000000 fe:3f 621                            /data/resource-cache/product@overlay@PixelConfigOverlay2019.apk@idmap",
+      "76f480b000-76f480c000 r--s 00000000 fe:3f 620                            /data/resource-cache/product@overlay@PixelConfigOverlay2019Midyear.apk@idmap",
+      "76f4882000-76f4883000 r--s 00000000 fe:3f 619                            /data/resource-cache/product@overlay@PixelConfigOverlay2018.apk@idmap",
+      "76f4884000-76f4885000 r--s 00000000 fe:3f 618                            /data/resource-cache/product@overlay@framework-res__cheetah__auto_generated_rro_product.apk@idmap",
+      "76f4d76000-76f4d77000 r--s 00000000 fe:3f 617                            /data/resource-cache/product@overlay@VerifierResOverlay.apk@idmap",
+      "76f5858000-76f5859000 r--s 00000000 fe:3f 616                            /data/resource-cache/product@overlay@PixelConfigOverlayCommon.apk@idmap",
+      "76f585b000-76f585c000 r--s 00000000 fe:3f 615                            /data/resource-cache/product@overlay@GoogleWebViewOverlay.apk@idmap",
+      "76f5edf000-76f5fd9000 rw-p 00000000 fe:3f 256728                         /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot.vdex",
+      "76f6094000-76f6095000 r--s 0001b000 fe:3f 1963978                        /data/app/~~mrX-aV7UZZXrrIwXqw1r-A==/dev.codex.envprobe-jbJczDk3H81sMoqAVCVvhA==/base.apk",
+      "76f616c000-76f616d000 r--s 00000000 fe:3f 614                            /data/resource-cache/product@overlay@GoogleConfigOverlay.apk@idmap",
+      "76f616e000-76f616f000 r--s 00000000 fe:3f 613                            /data/resource-cache/vendor@overlay@framework-res__cheetah__auto_generated_rro_vendor.apk@idmap",
+      "76f6349000-76f6384000 rw-p 00000000 fe:3f 256330                         /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot-framework-adservices.vdex",
+      "76f65a2000-76f65c8000 r--p 007b4000 fe:3f 256729                         /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot.art"
+    ],
+    "procMountinfoSelected": [
+      "14400 14399 254:63 /user_de/0/dev.codex.envprobe /data/user_de/0/dev.codex.envprobe rw,nosuid,nodev,noatime master:38 - f2fs /dev/block/dm-63 rw,lazytime,seclabel,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,reserve_node=0,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,compress_algorithm=lz4,compress_log_size=2,compress_mode=fs,compress_cache,atgc,memory=normal,lookup_mode=perf",
+      "14401 14397 254:63 /data/dev.codex.envprobe /data/data/dev.codex.envprobe rw,nosuid,nodev,noatime master:38 - f2fs /dev/block/dm-63 rw,lazytime,seclabel,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,reserve_node=0,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,compress_algorithm=lz4,compress_log_size=2,compress_mode=fs,compress_cache,atgc,memory=normal,lookup_mode=perf",
+      "14406 14404 254:63 /misc/profiles/cur/0/dev.codex.envprobe /data/misc/profiles/cur/0/dev.codex.envprobe rw,nosuid,nodev,noatime master:38 - f2fs /dev/block/dm-63 rw,lazytime,seclabel,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,reserve_node=0,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,compress_algorithm=lz4,compress_log_size=2,compress_mode=fs,compress_cache,atgc,memory=normal,lookup_mode=perf",
+      "14407 14405 254:63 /misc/profiles/ref/dev.codex.envprobe /data/misc/profiles/ref/dev.codex.envprobe rw,nosuid,nodev,noatime master:38 - f2fs /dev/block/dm-63 rw,lazytime,seclabel,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,reserve_node=0,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,compress_algorithm=lz4,compress_log_size=2,compress_mode=fs,compress_cache,atgc,memory=normal,lookup_mode=perf"
+    ],
+    "systemProperties": {
+      "ro.build.version.sdk": "37",
+      "ro.product.cpu.abi": "arm64-v8a",
+      "ro.product.model": "Pixel 7 Pro",
+      "ro.build.fingerprint": "google/cheetah/cheetah:17/CP2A.260705.006/15641320:user/release-keys",
+      "ro.debuggable": "",
+      "ro.secure": "",
+      "dalvik.vm.isa.arm64.features": "default"
+    }
+  }
+}

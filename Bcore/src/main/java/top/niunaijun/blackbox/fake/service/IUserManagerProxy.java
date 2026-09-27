@@ -1,6 +1,7 @@
 package top.niunaijun.blackbox.fake.service;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -44,6 +45,17 @@ public class IUserManagerProxy extends BinderInvocationStub {
         }
     }
 
+    // What UserManager.getApplicationRestrictions calls now. Asked about a guest's
+    // package it is "only system may" - Play services died of it on boot. No device
+    // policy manages a guest, so it has no restrictions.
+    @ProxyMethod("getApplicationRestrictionsForUser")
+    public static class GetApplicationRestrictionsForUser extends MethodHook {
+        @Override
+        protected Object hook(Object who, Method method, Object[] args) throws Throwable {
+            return new Bundle();
+        }
+    }
+
     @ProxyMethod("getProfileParent")
     public static class GetProfileParent extends MethodHook {
         @Override
@@ -58,6 +70,25 @@ public class IUserManagerProxy extends BinderInvocationStub {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
             return new ArrayList<>();
+        }
+    }
+
+    // Both need MANAGE_USERS, CREATE_USERS or QUERY_USERS, which only system apps hold;
+    // Play services asks on boot and died of the SecurityException. The host's user is
+    // the only one a guest lives in, so it is the main one.
+    @ProxyMethod("isMainUser")
+    public static class IsMainUser extends MethodHook {
+        @Override
+        protected Object hook(Object who, Method method, Object[] args) throws Throwable {
+            return true;
+        }
+    }
+
+    @ProxyMethod("getMainUserId")
+    public static class GetMainUserId extends MethodHook {
+        @Override
+        protected Object hook(Object who, Method method, Object[] args) throws Throwable {
+            return BlackBoxCore.getHostUserId();
         }
     }
 }

@@ -77,7 +77,8 @@ public class BlackBoxSystem {
             } catch (PackageManager.NameNotFoundException ignored) {
             }
         }
-        
+        BActivityManagerService.get().onSystemStarted();
+
         JarManager.getInstance().initializeAsync();
         
         

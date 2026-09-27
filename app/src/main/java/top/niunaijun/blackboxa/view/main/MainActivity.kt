@@ -67,7 +67,7 @@ class MainActivity : LoadingActivity() {
             checkStoragePermission()
 
             
-            checkVpnPermission()
+            // AutoPTCGP: VPN mode is unused; do not ask for VPN permission on launch
 
             try {
                 BlackBoxCore.get().onAfterMainActivityOnCreate(this)

@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 
 import top.niunaijun.blackbox.BlackBoxCore;
 import top.niunaijun.blackbox.app.BActivityThread;
+import top.niunaijun.blackbox.app.ChooseAccountActivity;
 import top.niunaijun.blackbox.fake.hook.MethodHook;
 import top.niunaijun.blackbox.fake.hook.ProxyMethod;
 import top.niunaijun.blackbox.fake.provider.FileProviderHandler;
@@ -39,6 +40,11 @@ public class ActivityManagerCommonProxy {
             
             
             if (intent.getParcelableExtra("_B_|_target_") != null) {
+                return method.invoke(who, args);
+            }
+            // Android's account picker runs outside the container and would list the
+            // phone's own accounts; the guest gets the container's picker instead.
+            if (ChooseAccountActivity.redirect(intent, BActivityThread.getUserId(), BActivityThread.getAppPackageName())) {
                 return method.invoke(who, args);
             }
             if (ComponentUtils.isRequestInstall(intent)) {

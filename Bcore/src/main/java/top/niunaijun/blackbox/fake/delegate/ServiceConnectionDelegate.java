@@ -1,11 +1,14 @@
 package top.niunaijun.blackbox.fake.delegate;
 
+import android.app.IBinderSession;
 import android.app.IServiceConnection;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteException;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,5 +62,31 @@ public class ServiceConnectionDelegate extends IServiceConnection.Stub {
         } else {
             mConn.connected(name, service);
         }
+    }
+
+    // Android 17 (API 37) replaced every earlier form with this one, and it is the
+    // only one the system calls. Without it the guest dies with AbstractMethodError
+    // the first time a bound service connects.
+    public void connected(ComponentName name, IBinder service, IBinderSession session, boolean dead) throws RemoteException {
+        try {
+            connectedWithSession().invoke(mConn, mComponentName, service, session, dead);
+        } catch (InvocationTargetException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof RemoteException) throw (RemoteException) cause;
+            if (cause instanceof RuntimeException) throw (RuntimeException) cause;
+            throw new RuntimeException(cause);
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static Method sConnectedWithSession;
+
+    private static Method connectedWithSession() throws NoSuchMethodException {
+        if (sConnectedWithSession == null) {
+            sConnectedWithSession = IServiceConnection.class.getMethod("connected",
+                    ComponentName.class, IBinder.class, IBinderSession.class, boolean.class);
+        }
+        return sConnectedWithSession;
     }
 }

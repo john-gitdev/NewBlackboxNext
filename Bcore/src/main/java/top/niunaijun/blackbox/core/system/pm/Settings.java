@@ -53,6 +53,9 @@ import top.niunaijun.blackbox.utils.compat.PackageParserCompat;
             if (pkgSettings != null) {
                 origSettings.appId = pkgSettings.appId;
                 origSettings.userState = pkgSettings.userState;
+                origSettings.initiatingPackageName = pkgSettings.initiatingPackageName;
+                origSettings.originatingPackageName = pkgSettings.originatingPackageName;
+                origSettings.installingPackageName = pkgSettings.installingPackageName;
             } else {
                 boolean b = registerAppIdLPw(origSettings);
                 if (!b) {

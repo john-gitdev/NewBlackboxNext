@@ -1,0 +1,28 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <queries>
+        <package android:name="com.android.vending" />
+        <package android:name="com.google.android.gms" />
+        <package android:name="dev.codex.envpeer" />
+        <intent><action android:name="com.google.android.play.core.assetmoduleservice.BIND_ASSET_MODULE_SERVICE" /></intent>
+    </queries>
+    <application android:label="Android Env Probe" android:allowBackup="false" android:usesCleartextTraffic="false">
+        <activity android:name=".ProbeActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service android:name=".ProbeService" android:exported="true" android:process=":probe_service">
+            <intent-filter><action android:name="dev.codex.envprobe.PING" /></intent-filter>
+        </service>
+        <provider android:name=".ProbeProvider" android:authorities="dev.codex.envprobe.provider" android:exported="true" android:process=":probe_provider" />
+        <receiver android:name=".BootProbeReceiver" android:exported="true" android:directBootAware="true">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

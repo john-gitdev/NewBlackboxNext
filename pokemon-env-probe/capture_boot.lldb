@@ -1,0 +1,3 @@
+gdb-remote 5039
+command script import C:/Users/johnw/repos/NewBlackbox/pokemon-env-probe/capture_boot.py
+script capture_boot.run(lldb.debugger)

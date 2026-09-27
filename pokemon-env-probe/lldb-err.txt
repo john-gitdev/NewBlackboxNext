@@ -1,0 +1,1 @@
+C:\Users\johnw\AppData\Local\Android\Sdk\ndk\28.2.13676358\toolchains\llvm\prebuilt\windows-x86_64\bin\lldb.exe: Permission denied

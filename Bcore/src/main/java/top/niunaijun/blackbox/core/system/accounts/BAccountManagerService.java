@@ -46,7 +46,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -199,17 +200,13 @@ public class BAccountManagerService extends IBAccountManagerService.Stub impleme
 
     @Override
     public AuthenticatorDescription[] getAuthenticatorTypes(int userId) throws RemoteException {
-        
-        BUserAccounts userAccounts = getUserAccounts(userId);
+        // Every installed authenticator, as Android reports - not only those with an
+        // account already. Otherwise nothing could offer to add the first account.
         List<AuthenticatorDescription> authenticatorDescriptions = new ArrayList<>();
-        synchronized (userAccounts.lock) {
-            for (BAccount account : userAccounts.accounts) {
-                AuthenticatorInfo authenticatorInfo = mAuthenticatorCache.authenticators.get(account.account.type);
-                if (authenticatorInfo != null) {
-                    authenticatorDescriptions.add(authenticatorInfo.desc);
-                }
-            }
+        for (AuthenticatorInfo authenticatorInfo : mAuthenticatorCache.authenticators.values()) {
+            authenticatorDescriptions.add(authenticatorInfo.desc);
         }
+        Slog.d(TAG, "getAuthenticatorTypes(user " + userId + ") -> " + mAuthenticatorCache.authenticators.keySet());
         return authenticatorDescriptions.toArray(new AuthenticatorDescription[]{});
     }
 
@@ -1349,7 +1346,7 @@ public class BAccountManagerService extends IBAccountManagerService.Stub impleme
     }
 
     private static final class AuthenticatorCache {
-        final Map<String, AuthenticatorInfo> authenticators = new HashMap<>();
+        final Map<String, AuthenticatorInfo> authenticators = new ConcurrentHashMap<>();
     }
 
     private static AuthenticatorDescription parseAuthenticatorDescription(Resources resources, String packageName,
@@ -1374,14 +1371,26 @@ public class BAccountManagerService extends IBAccountManagerService.Stub impleme
     }
 
     public void loadAuthenticatorCache(String packageName) {
-        mAuthenticatorCache.authenticators.clear();
+        // A single package's reload replaces only its own entries. Clearing everything
+        // here dropped every other app's authenticator whenever any app was installed.
+        if (packageName == null) {
+            mAuthenticatorCache.authenticators.clear();
+        } else {
+            mAuthenticatorCache.authenticators.values()
+                    .removeIf(info -> packageName.equals(info.desc.packageName));
+        }
         Intent intent = new Intent(AccountManager.ACTION_AUTHENTICATOR_INTENT);
         if (packageName != null) {
             intent.setPackage(packageName);
         }
-        generateServicesMap(
-                mPms.queryIntentServices(intent, PackageManager.GET_META_DATA, BUserHandle.USER_ALL),
-                mAuthenticatorCache.authenticators, new RegisteredServicesParser());
+        List<ResolveInfo> services = mPms.queryIntentServices(intent, PackageManager.GET_META_DATA, BUserHandle.USER_ALL);
+        List<String> found = new ArrayList<>();
+        for (ResolveInfo info : services) {
+            found.add(info.serviceInfo.packageName + "/" + info.serviceInfo.name);
+        }
+        Slog.d(TAG, "Authenticator services in " + (packageName == null ? "all packages" : packageName) + ": " + found);
+        generateServicesMap(services, mAuthenticatorCache.authenticators, new RegisteredServicesParser());
+        Slog.d(TAG, "Registered authenticator types: " + mAuthenticatorCache.authenticators.keySet());
     }
 
     private void generateServicesMap(List<ResolveInfo> services, Map<String, AuthenticatorInfo> map,
@@ -1389,7 +1398,10 @@ public class BAccountManagerService extends IBAccountManagerService.Stub impleme
         for (ResolveInfo info : services) {
             XmlResourceParser parser = accountParser.getParser(mContext, info.serviceInfo,
                     AccountManager.AUTHENTICATOR_META_DATA_NAME);
-            if (parser != null) {
+            String component = info.serviceInfo.packageName + "/" + info.serviceInfo.name;
+            if (parser == null) {
+                Slog.w(TAG, "No readable " + AccountManager.AUTHENTICATOR_META_DATA_NAME + " metadata in " + component);
+            } else {
                 try {
                     AttributeSet attributeSet = Xml.asAttributeSet(parser);
                     int type;
@@ -1402,10 +1414,15 @@ public class BAccountManagerService extends IBAccountManagerService.Stub impleme
                                 info.serviceInfo.packageName, attributeSet);
                         if (desc != null) {
                             map.put(desc.type, new AuthenticatorInfo(desc, info.serviceInfo));
+                            Slog.d(TAG, "Authenticator " + component + ": type " + desc.type);
+                        } else {
+                            Slog.w(TAG, "Unusable authenticator metadata in " + component);
                         }
+                    } else {
+                        Slog.w(TAG, "Authenticator metadata in " + component + " starts with <" + parser.getName() + ">");
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Slog.w(TAG, "Unable to parse authenticator metadata in " + component, e);
                 }
             }
         }
@@ -1733,10 +1750,7 @@ public class BAccountManagerService extends IBAccountManagerService.Stub impleme
         private boolean bindToAuthenticator(String authenticatorType) {
             AuthenticatorInfo authenticatorInfo = mAuthenticatorCache.authenticators.get(authenticatorType);
             if (authenticatorInfo == null) {
-                if (Log.isLoggable(TAG, Log.VERBOSE)) {
-                    Log.v(TAG, "there is no authenticator for " + authenticatorType
-                            + ", bailing out");
-                }
+                Slog.w(TAG, "No authenticator registered for " + authenticatorType);
                 return false;
             }
 
@@ -1762,9 +1776,7 @@ public class BAccountManagerService extends IBAccountManagerService.Stub impleme
 
 
             if (!mContext.bindService(intent, this, flags)) {
-                if (Log.isLoggable(TAG, Log.VERBOSE)) {
-                    Log.v(TAG, "bindService to " + componentName + " failed");
-                }
+                Slog.w(TAG, "Binding authenticator " + componentName + " failed");
                 return false;
             }
 

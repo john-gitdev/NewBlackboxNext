@@ -32,7 +32,11 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
-    
+    <!-- Activity screen capture / recording callbacks (API 34 / 35). Checked against the
+         host, so a guest that registers one (Spotify does) crashes without them. -->
+    <uses-permission android:name="android.permission.DETECT_SCREEN_CAPTURE" />
+    <uses-permission android:name="android.permission.DETECT_SCREEN_RECORDING" />
+
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
     
@@ -530,6 +534,13 @@
             android:name=".app.LauncherActivity"
             android:excludeFromRecents="true"
             android:theme="@style/LauncherTheme" />
+
+        <!-- Replaces Android's account picker for guests: see ChooseAccountActivity. -->
+        <activity
+            android:name=".app.ChooseAccountActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <service
             android:name="top.niunaijun.blackbox.proxy.ProxyVpnService"
