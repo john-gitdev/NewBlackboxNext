@@ -33,23 +33,38 @@ public final class BootProbeReceiver extends BroadcastReceiver {
             event.put("receiverDeviceProtected", context.isDeviceProtectedStorage());
             event.put("dePath", deMarker.getAbsolutePath());
             event.put("deLogicalPath", deLogical.getAbsolutePath());
-            String token = "boot;pid=" + Process.myPid() + ";time=" + System.currentTimeMillis();
-            try (FileOutputStream out = new FileOutputStream(deMarker, false)) {
-                out.write(token.getBytes(StandardCharsets.UTF_8));
-                event.put("deWrite", "OK");
-            } catch (Throwable t) {
-                event.put("deWrite", failure(t));
+            // The unlocked event must read the value written by the locked event.
+            // Rewriting it here would hide a failure to preserve DE data across unlock.
+            if (Intent.ACTION_LOCKED_BOOT_COMPLETED.equals(intent.getAction())) {
+                String token = "boot;pid=" + Process.myPid() + ";time=" + System.currentTimeMillis();
+                try (FileOutputStream out = new FileOutputStream(deMarker, false)) {
+                    out.write(token.getBytes(StandardCharsets.UTF_8));
+                    event.put("deWrite", "OK");
+                } catch (Throwable t) {
+                    event.put("deWrite", failure(t));
+                }
+            } else {
+                event.put("deWrite", "UNCHANGED");
             }
             event.put("deJavaRead", read(deMarker));
             event.put("deNativeRead", nativeRead(deMarker));
             event.put("deLogicalJavaRead", read(deLogical));
             event.put("deLogicalNativeRead", nativeRead(deLogical));
+            File peerDeLogical = new File("/data/user_de/0/dev.codex.envpeer/files/"
+                    + "envpeer-device-marker.txt");
+            event.put("peerDeLogicalJavaRead", read(peerDeLogical));
+            event.put("peerDeLogicalNativeRead", nativeRead(peerDeLogical));
             try {
                 File ceMarker = new File(context.getApplicationInfo().dataDir,
                         "files/envprobe-isolation-marker.txt");
                 event.put("cePath", ceMarker.getAbsolutePath());
                 event.put("ceJavaRead", read(ceMarker));
                 event.put("ceNativeRead", nativeRead(ceMarker));
+                File ceLogical = new File("/data/user/0/" + context.getPackageName()
+                        + "/files/envprobe-isolation-marker.txt");
+                event.put("ceLogicalPath", ceLogical.getAbsolutePath());
+                event.put("ceLogicalJavaRead", read(ceLogical));
+                event.put("ceLogicalNativeRead", nativeRead(ceLogical));
             } catch (Throwable t) {
                 event.put("ceAccess", failure(t));
             }

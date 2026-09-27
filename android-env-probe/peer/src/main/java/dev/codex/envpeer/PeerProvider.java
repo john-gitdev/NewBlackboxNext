@@ -24,10 +24,21 @@ public final class PeerProvider extends ContentProvider {
         } catch (IOException e) {
             markerValue = "ERR:" + e.getClass().getSimpleName();
         }
+        File deviceMarker = new File(getContext().createDeviceProtectedStorageContext().getFilesDir(),
+                "envpeer-device-marker.txt");
+        String deviceMarkerValue = "peer-de;pid=" + Process.myPid() + ";time="
+                + System.currentTimeMillis();
+        try (FileOutputStream out = new FileOutputStream(deviceMarker)) {
+            out.write(deviceMarkerValue.getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            deviceMarkerValue = "ERR:" + e.getClass().getSimpleName();
+        }
         MatrixCursor c = new MatrixCursor(new String[]{"value", "callingUid", "callingPid",
-                "processUid", "processPid", "markerPath", "markerValue"});
+                "processUid", "processPid", "markerPath", "markerValue",
+                "deviceMarkerPath", "deviceMarkerValue"});
         c.addRow(new Object[]{"peer-ok", Binder.getCallingUid(), Binder.getCallingPid(),
-                Process.myUid(), Process.myPid(), marker.getAbsolutePath(), markerValue});
+                Process.myUid(), Process.myPid(), marker.getAbsolutePath(), markerValue,
+                deviceMarker.getAbsolutePath(), deviceMarkerValue});
         return c;
     }
     @Override public String getType(Uri uri) { return "vnd.android.cursor.item/vnd.dev.codex.envpeer"; }

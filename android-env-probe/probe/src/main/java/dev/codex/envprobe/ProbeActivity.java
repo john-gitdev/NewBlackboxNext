@@ -131,7 +131,7 @@ public final class ProbeActivity extends Activity {
 
     private void snapshot() {
         JSONObject root = new JSONObject();
-        put(root, "schema", 7);
+        put(root, "schema", 8);
         put(root, "timestampUtcMs", System.currentTimeMillis());
         put(root, "lifecycle", lifecycle);
         put(root, "identity", identity());
@@ -488,6 +488,12 @@ public final class ProbeActivity extends Activity {
                 put(o, "processPid", c.getInt(4));
                 put(o, "markerPath", c.getString(5));
                 put(o, "markerValue", c.getString(6));
+                int devicePathColumn = c.getColumnIndex("deviceMarkerPath");
+                int deviceValueColumn = c.getColumnIndex("deviceMarkerValue");
+                if (devicePathColumn >= 0 && deviceValueColumn >= 0) {
+                    put(o, "deviceMarkerPath", c.getString(devicePathColumn));
+                    put(o, "deviceMarkerValue", c.getString(deviceValueColumn));
+                }
                 return o;
             }
         });

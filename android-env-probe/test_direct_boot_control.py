@@ -26,9 +26,11 @@ class UnlockedBootControlTest(unittest.TestCase):
                 events = latest_events(name)
                 self.assertIn("LOCKED_BOOT_COMPLETED", events)
                 self.assertIn("BOOT_COMPLETED", events)
-                for event in events.values():
+                for action, event in events.items():
                     self.assertTrue(event["userUnlocked"])
-                    self.assertEqual("OK", event["deWrite"])
+                    self.assertIn(event["deWrite"], ("OK", "UNCHANGED"))
+                    if action == "LOCKED_BOOT_COMPLETED":
+                        self.assertEqual("OK", event["deWrite"])
                     self.assertEqual(event["deJavaRead"], event["deNativeRead"])
                     self.assertEqual(event["deJavaRead"], event["deLogicalJavaRead"])
                     self.assertEqual(event["deJavaRead"], event["deLogicalNativeRead"])
