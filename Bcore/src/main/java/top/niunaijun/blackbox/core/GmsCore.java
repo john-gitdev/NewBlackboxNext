@@ -110,7 +110,7 @@ public class GmsCore {
     // its install sends already finds them on; users can still switch them off in
     // microG's settings. An existing settings file is left as it is.
     private static void enableMicroGServices(int userId) {
-        File prefs = new File(BEnvironment.getDataDir(GMS_PKG, userId),
+        File prefs = new File(BEnvironment.getBackingDataDir(GMS_PKG, userId),
                 "shared_prefs/" + GMS_PKG + "_preferences.xml");
         if (prefs.exists()) {
             return;

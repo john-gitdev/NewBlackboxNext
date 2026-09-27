@@ -93,8 +93,15 @@ public class BEnvironment {
     }
 
 
-    public static File getDataDir(String packageName, int userId) {
+    /** Internal CE directory owned by the host. Never return this as a guest path. */
+    public static File getBackingDataDir(String packageName, int userId) {
         return new File(sVirtualRoot, String.format(Locale.CHINA, "data/user/%d/%s", userId, packageName));
+    }
+
+    /** CE path presented to a guest running as the physical host Android user. */
+    public static File getLogicalDataDir(String packageName) {
+        return new File(String.format(Locale.CHINA, "/data/user/%d/%s",
+                BlackBoxCore.getHostUserId(), packageName));
     }
 
     public static File getProcDir(int pid) {
@@ -107,24 +114,24 @@ public class BEnvironment {
         return new File(getExternalDataDir(packageName, userId), "files");
     }
 
-    public static File getDataFilesDir(String packageName, int userId) {
-        return new File(getDataDir(packageName, userId), "files");
+    public static File getBackingDataFilesDir(String packageName, int userId) {
+        return new File(getBackingDataDir(packageName, userId), "files");
     }
 
     public static File getExternalDataCacheDir(String packageName, int userId) {
         return new File(getExternalDataDir(packageName, userId), "cache");
     }
 
-    public static File getDataCacheDir(String packageName, int userId) {
-        return new File(getDataDir(packageName, userId), "cache");
+    public static File getBackingDataCacheDir(String packageName, int userId) {
+        return new File(getBackingDataDir(packageName, userId), "cache");
     }
 
-    public static File getDataLibDir(String packageName, int userId) {
-        return new File(getDataDir(packageName, userId), "lib");
+    public static File getBackingDataLibDir(String packageName, int userId) {
+        return new File(getBackingDataDir(packageName, userId), "lib");
     }
 
-    public static File getDataDatabasesDir(String packageName, int userId) {
-        return new File(getDataDir(packageName, userId), "databases");
+    public static File getBackingDataDatabasesDir(String packageName, int userId) {
+        return new File(getBackingDataDir(packageName, userId), "databases");
     }
 
     public static File getAppRootDir() {
@@ -144,6 +151,6 @@ public class BEnvironment {
     }
 
     public static File getXSharedPreferences(String packageName, String prefFileName) {
-       return new File(BEnvironment.getDataDir(packageName, BlackBoxCore.getUserId()), "shared_prefs/" + prefFileName + ".xml");
+       return new File(BEnvironment.getBackingDataDir(packageName, BlackBoxCore.getUserId()), "shared_prefs/" + prefFileName + ".xml");
     }
 }

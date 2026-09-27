@@ -11,13 +11,13 @@ public class CreateUserExecutor implements Executor {
     @Override
     public int exec(BPackageSettings ps, InstallOption option, int userId) {
         String packageName = ps.pkg.packageName;
-        FileUtils.deleteDir(BEnvironment.getDataLibDir(packageName, userId));
+        FileUtils.deleteDir(BEnvironment.getBackingDataLibDir(packageName, userId));
 
         
-        FileUtils.mkdirs(BEnvironment.getDataDir(packageName, userId));
-        FileUtils.mkdirs(BEnvironment.getDataCacheDir(packageName, userId));
-        FileUtils.mkdirs(BEnvironment.getDataFilesDir(packageName, userId));
-        FileUtils.mkdirs(BEnvironment.getDataDatabasesDir(packageName, userId));
+        FileUtils.mkdirs(BEnvironment.getBackingDataDir(packageName, userId));
+        FileUtils.mkdirs(BEnvironment.getBackingDataCacheDir(packageName, userId));
+        FileUtils.mkdirs(BEnvironment.getBackingDataFilesDir(packageName, userId));
+        FileUtils.mkdirs(BEnvironment.getBackingDataDatabasesDir(packageName, userId));
         FileUtils.mkdirs(BEnvironment.getDeDataDir(packageName, userId));
 
 

@@ -322,7 +322,7 @@ public class PackageManagerCompat {
         if ((flags & PackageManager.GET_META_DATA) != 0) {
             ai.metaData = p.mAppMetaData;
         }
-        ai.dataDir = BEnvironment.getDataDir(ai.packageName, userId).getAbsolutePath();
+        ai.dataDir = BEnvironment.getLogicalDataDir(ai.packageName).getAbsolutePath();
         if (!p.installOption.isFlag(InstallOption.FLAG_SYSTEM)) {
             ai.nativeLibraryDir = BEnvironment.getAppLibDir(ai.packageName).getAbsolutePath();
         }

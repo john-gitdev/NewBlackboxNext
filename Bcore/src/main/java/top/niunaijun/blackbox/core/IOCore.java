@@ -145,8 +145,10 @@ public class IOCore {
             rule.put(String.format("/data/data/%s/lib", packageName), packageInfo.nativeLibraryDir);
             rule.put(String.format("/data/user/%d/%s/lib", systemUserId, packageName), packageInfo.nativeLibraryDir);
 
-            rule.put(String.format("/data/data/%s", packageName), packageInfo.dataDir);
-            rule.put(String.format("/data/user/%d/%s", systemUserId, packageName), packageInfo.dataDir);
+            String backingDataDir = BEnvironment.getBackingDataDir(
+                    packageName, BlackBoxCore.getUserId()).getAbsolutePath();
+            rule.put(String.format("/data/data/%s", packageName), backingDataDir);
+            rule.put(BEnvironment.getLogicalDataDir(packageName).getAbsolutePath(), backingDataDir);
             rule.put(String.format("/data/user_de/%d/%s", systemUserId, packageName),
                     BEnvironment.getDeDataDir(packageName, BlackBoxCore.getUserId()).getAbsolutePath());
 

@@ -131,7 +131,7 @@ public final class ProbeActivity extends Activity {
 
     private void snapshot() {
         JSONObject root = new JSONObject();
-        put(root, "schema", 8);
+        put(root, "schema", 9);
         put(root, "timestampUtcMs", System.currentTimeMillis());
         put(root, "lifecycle", lifecycle);
         put(root, "identity", identity());
@@ -212,6 +212,8 @@ public final class ProbeActivity extends Activity {
         put(j, "processName", a.processName);
         put(j, "uid", a.uid);
         put(j, "dataDir", a.dataDir);
+        field(j, "credentialProtectedDataDir", () ->
+                (String) ApplicationInfo.class.getField("credentialProtectedDataDir").get(a));
         put(j, "deviceProtectedDataDir", a.deviceProtectedDataDir);
         put(j, "sourceDir", a.sourceDir);
         put(j, "publicSourceDir", a.publicSourceDir);

@@ -1,0 +1,544 @@
+{
+  "schema": 9,
+  "timestampUtcMs": 1790543218321,
+  "lifecycle": [
+    "onCreate@5199221",
+    "onStart@5199243",
+    "onResume@5199258"
+  ],
+  "identity": {
+    "packageName": "dev.codex.envprobe",
+    "opPackageName": "dev.codex.envprobe",
+    "pid": 16331,
+    "androidUid": 10316,
+    "osGetuid": 10316,
+    "osGetgid": 10316,
+    "appProcessName": "dev.codex.envprobe",
+    "activityManagerProcess": "dev.codex.envprobe uid=10316 packages=[dev.codex.envprobe]",
+    "pmPackageUid": 10316,
+    "systemPackageUid": "ERROR:NameNotFoundException:android",
+    "missingPackageUid": "ERROR:NameNotFoundException:dev.codex.envprobe.definitely.missing"
+  },
+  "applicationInfo": {
+    "contextApplicationInfo": {
+      "packageName": "dev.codex.envprobe",
+      "processName": "dev.codex.envprobe",
+      "uid": 10316,
+      "dataDir": "/data/user/0/dev.codex.envprobe",
+      "credentialProtectedDataDir": "/data/user/0/dev.codex.envprobe",
+      "deviceProtectedDataDir": "/data/user_de/0/dev.codex.envprobe",
+      "sourceDir": "/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk",
+      "publicSourceDir": "/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk",
+      "nativeLibraryDir": "/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/lib/arm64",
+      "splitSourceDirs": [],
+      "splitPublicSourceDirs": [],
+      "splitNames": [],
+      "enabled": true,
+      "flags": 545799750,
+      "targetSdkVersion": 35,
+      "minSdkVersion": 24,
+      "className": null,
+      "taskAffinity": "dev.codex.envprobe"
+    },
+    "pmApplicationInfo": {
+      "packageName": "dev.codex.envprobe",
+      "processName": "dev.codex.envprobe",
+      "uid": 10316,
+      "dataDir": "/data/user/0/dev.codex.envprobe",
+      "credentialProtectedDataDir": "/data/user/0/dev.codex.envprobe",
+      "deviceProtectedDataDir": "/data/user_de/0/dev.codex.envprobe",
+      "sourceDir": "/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk",
+      "publicSourceDir": "/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk",
+      "nativeLibraryDir": "/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/lib/arm64",
+      "splitSourceDirs": [],
+      "splitPublicSourceDirs": [],
+      "splitNames": [],
+      "enabled": true,
+      "flags": 545799750,
+      "targetSdkVersion": 35,
+      "minSdkVersion": 24,
+      "className": null,
+      "taskAffinity": "dev.codex.envprobe"
+    }
+  },
+  "directories": {
+    "dataDir": "/data/user/0/dev.codex.envprobe",
+    "filesDir": "/data/user/0/dev.codex.envprobe/files",
+    "cacheDir": "/data/user/0/dev.codex.envprobe/cache",
+    "codeCacheDir": "/data/user/0/dev.codex.envprobe/code_cache",
+    "noBackupFilesDir": "/data/user/0/dev.codex.envprobe/no_backup",
+    "externalFilesDir": "/storage/emulated/0/Android/data/dev.codex.envprobe/files",
+    "deviceProtectedContextDataDir": "/data/user_de/0/dev.codex.envprobe",
+    "contextIsDeviceProtectedStorage": false,
+    "filesDirCanonical": "/data/data/dev.codex.envprobe/files",
+    "dataDirExists": true,
+    "dataDirCanRead": true,
+    "dataDirCanWrite": true,
+    "filesDirStat": {
+      "device": 65087,
+      "inode": 1967193,
+      "uid": 10316,
+      "gid": 10316
+    },
+    "isolationMarker": {
+      "path": "/data/user/0/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "previous": "pid=19388;uid=10316;time=1790523322794",
+      "written": "pid=16331;uid=10316;time=1790543218347",
+      "readBack": "pid=16331;uid=10316;time=1790543218347",
+      "logicalUserRead": "pid=16331;uid=10316;time=1790543218347",
+      "logicalDataRead": "pid=16331;uid=10316;time=1790543218347",
+      "logicalUserCanonical": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "logicalDataCanonical": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "kernelFdPath": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt"
+    },
+    "userUnlocked": true,
+    "deviceProtectedMarker": {
+      "path": "/data/user_de/0/dev.codex.envprobe/files/envprobe-device-marker.txt",
+      "prior": "pid=19388;time=1790523322805",
+      "readBack": "pid=16331;time=1790543218353",
+      "canonical": "/data/user_de/0/dev.codex.envprobe/files/envprobe-device-marker.txt"
+    },
+    "directBootEvents": null
+  },
+  "peerProvider": {
+    "query": {
+      "value": "peer-ok",
+      "callingUid": 10316,
+      "callingPid": 16331,
+      "processUid": 10316,
+      "processPid": 16432,
+      "markerPath": "/data/user/0/dev.codex.envpeer/files/envpeer-isolation-marker.txt",
+      "markerValue": "peer;pid=16432;time=1790543218610",
+      "deviceMarkerPath": "/data/user_de/0/dev.codex.envpeer/files/envpeer-device-marker.txt",
+      "deviceMarkerValue": "peer-de;pid=16432;time=1790543218611"
+    }
+  },
+  "nativeFilesystem": {
+    "libraryName": "libenvprobe.so",
+    "backingPath": {
+      "path": "/data/user/0/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "openRead": "pid=16331;uid=10316;time=1790543218347",
+      "openatRead": "pid=16331;uid=10316;time=1790543218347",
+      "stat": "dev=65087 ino=1884712 uid=10316 mode=100600",
+      "lstat": "dev=65087 ino=1884712 uid=10316 mode=100600",
+      "readlink": "ERR:22",
+      "realpath": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "procSelfFdReadlink": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "access": "OK",
+      "faccessat": "OK",
+      "fstatat": "dev=65087 ino=1884712 uid=10316 mode=100600",
+      "procSelfFdReadlinkat": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "open64Read": "pid=16331;uid=10316;time=1790543218347",
+      "openat64Read": "pid=16331;uid=10316;time=1790543218347"
+    },
+    "logicalPath": {
+      "path": "/data/user/0/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "openRead": "pid=16331;uid=10316;time=1790543218347",
+      "openatRead": "pid=16331;uid=10316;time=1790543218347",
+      "stat": "dev=65087 ino=1884712 uid=10316 mode=100600",
+      "lstat": "dev=65087 ino=1884712 uid=10316 mode=100600",
+      "readlink": "ERR:22",
+      "realpath": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "procSelfFdReadlink": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "access": "OK",
+      "faccessat": "OK",
+      "fstatat": "dev=65087 ino=1884712 uid=10316 mode=100600",
+      "procSelfFdReadlinkat": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "open64Read": "pid=16331;uid=10316;time=1790543218347",
+      "openat64Read": "pid=16331;uid=10316;time=1790543218347"
+    },
+    "logicalDataAlias": {
+      "path": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "openRead": "pid=16331;uid=10316;time=1790543218347",
+      "openatRead": "pid=16331;uid=10316;time=1790543218347",
+      "stat": "dev=65087 ino=1884712 uid=10316 mode=100600",
+      "lstat": "dev=65087 ino=1884712 uid=10316 mode=100600",
+      "readlink": "ERR:22",
+      "realpath": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "procSelfFdReadlink": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "access": "OK",
+      "faccessat": "OK",
+      "fstatat": "dev=65087 ino=1884712 uid=10316 mode=100600",
+      "procSelfFdReadlinkat": "/data/data/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+      "open64Read": "pid=16331;uid=10316;time=1790543218347",
+      "openat64Read": "pid=16331;uid=10316;time=1790543218347"
+    },
+    "logicalDeviceProtectedPath": {
+      "path": "/data/user_de/0/dev.codex.envprobe/files/envprobe-device-marker.txt",
+      "openRead": "pid=16331;time=1790543218353",
+      "openatRead": "pid=16331;time=1790543218353",
+      "stat": "dev=65087 ino=1351226 uid=10316 mode=100600",
+      "lstat": "dev=65087 ino=1351226 uid=10316 mode=100600",
+      "readlink": "ERR:22",
+      "realpath": "ERR:2",
+      "procSelfFdReadlink": "/data/data/dev.codex.envprobe/files/envprobe-device-marker.txt",
+      "access": "OK",
+      "faccessat": "OK",
+      "fstatat": "dev=65087 ino=1351226 uid=10316 mode=100600",
+      "procSelfFdReadlinkat": "/data/data/dev.codex.envprobe/files/envprobe-device-marker.txt",
+      "open64Read": "pid=16331;time=1790543218353",
+      "openat64Read": "pid=16331;time=1790543218353"
+    },
+    "deviceProtectedPath": {
+      "path": "/data/user_de/0/dev.codex.envprobe/files/envprobe-device-marker.txt",
+      "openRead": "pid=16331;time=1790543218353",
+      "openatRead": "pid=16331;time=1790543218353",
+      "stat": "dev=65087 ino=1351226 uid=10316 mode=100600",
+      "lstat": "dev=65087 ino=1351226 uid=10316 mode=100600",
+      "readlink": "ERR:22",
+      "realpath": "ERR:2",
+      "procSelfFdReadlink": "/data/data/dev.codex.envprobe/files/envprobe-device-marker.txt",
+      "access": "OK",
+      "faccessat": "OK",
+      "fstatat": "dev=65087 ino=1351226 uid=10316 mode=100600",
+      "procSelfFdReadlinkat": "/data/data/dev.codex.envprobe/files/envprobe-device-marker.txt",
+      "open64Read": "pid=16331;time=1790543218353",
+      "openat64Read": "pid=16331;time=1790543218353"
+    },
+    "nativeWriteCe": {
+      "status": "OK",
+      "written": "native;pid=16331;time=1790543218620",
+      "javaRead": "native;pid=16331;time=1790543218620",
+      "nativeRead": "native;pid=16331;time=1790543218620"
+    },
+    "nativeWriteDe": {
+      "status": "OK",
+      "written": "native-de;pid=16331;time=1790543218621",
+      "javaRead": "native-de;pid=16331;time=1790543218621",
+      "nativeRead": "native-de;pid=16331;time=1790543218621"
+    },
+    "peerLogicalPath": {
+      "path": "/data/user/0/dev.codex.envpeer/files/envpeer-isolation-marker.txt",
+      "openRead": "ERR:2",
+      "openatRead": "ERR:2",
+      "stat": "ERR:2",
+      "lstat": "ERR:2",
+      "readlink": "ERR:2",
+      "realpath": "ERR:2",
+      "procSelfFdReadlink": "ERR:2",
+      "access": "ERR:2",
+      "faccessat": "ERR:2",
+      "fstatat": "ERR:2",
+      "procSelfFdReadlinkat": "ERR:2",
+      "open64Read": "ERR:2",
+      "openat64Read": "ERR:2"
+    },
+    "prefixNeighborPath": {
+      "path": "/data/user/0/dev.codex.envprobe.suffix/files/envprobe-isolation-marker.txt",
+      "openRead": "ERR:2",
+      "openatRead": "ERR:2",
+      "stat": "ERR:2",
+      "lstat": "ERR:2",
+      "readlink": "ERR:2",
+      "realpath": "ERR:2",
+      "procSelfFdReadlink": "ERR:2",
+      "access": "ERR:2",
+      "faccessat": "ERR:2",
+      "fstatat": "ERR:2",
+      "procSelfFdReadlinkat": "ERR:2",
+      "open64Read": "ERR:2",
+      "openat64Read": "ERR:2"
+    },
+    "parentTraversalPath": {
+      "path": "/data/user/0/dev.codex.envprobe/../dev.codex.envpeer/files/envpeer-isolation-marker.txt",
+      "openRead": "ERR:2",
+      "openatRead": "ERR:2",
+      "stat": "ERR:2",
+      "lstat": "ERR:2",
+      "readlink": "ERR:2",
+      "realpath": "ERR:2",
+      "procSelfFdReadlink": "ERR:2",
+      "access": "ERR:2",
+      "faccessat": "ERR:2",
+      "fstatat": "ERR:2",
+      "procSelfFdReadlinkat": "ERR:2",
+      "open64Read": "ERR:2",
+      "openat64Read": "ERR:2"
+    },
+    "mutations": {
+      "status": "ERR:renameat:2",
+      "symlinkRead": "pid=16331;uid=10316;time=1790543218347",
+      "symlinkTarget": "/data/user/0/dev.codex.envprobe/files/envprobe-isolation-marker.txt"
+    }
+  },
+  "packageManager": {
+    "self": {
+      "packageName": "dev.codex.envprobe",
+      "versionName": "1.0",
+      "versionCode": 1,
+      "applicationInfo": {
+        "packageName": "dev.codex.envprobe",
+        "processName": "dev.codex.envprobe",
+        "uid": 10316,
+        "dataDir": "/data/user/0/dev.codex.envprobe",
+        "credentialProtectedDataDir": "/data/user/0/dev.codex.envprobe",
+        "deviceProtectedDataDir": "/data/user_de/0/dev.codex.envprobe",
+        "sourceDir": "/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk",
+        "publicSourceDir": "/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk",
+        "nativeLibraryDir": "/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/lib/arm64",
+        "splitSourceDirs": [],
+        "splitPublicSourceDirs": [],
+        "splitNames": [],
+        "enabled": true,
+        "flags": 545799750,
+        "targetSdkVersion": 35,
+        "minSdkVersion": 24,
+        "className": null,
+        "taskAffinity": "dev.codex.envprobe"
+      },
+      "services": [
+        {
+          "packageName": "dev.codex.envprobe",
+          "name": "dev.codex.envprobe.ProbeService",
+          "processName": "dev.codex.envprobe:probe_service",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        }
+      ],
+      "providers": [
+        {
+          "packageName": "dev.codex.envprobe",
+          "name": "dev.codex.envprobe.ProbeProvider",
+          "authority": "dev.codex.envprobe.provider",
+          "exported": true,
+          "enabled": true,
+          "processName": "dev.codex.envprobe:probe_provider"
+        }
+      ]
+    },
+    "vending": "ERROR:NameNotFoundException:com.android.vending",
+    "gms": "ERROR:NameNotFoundException:com.google.android.gms",
+    "peer": {
+      "packageName": "dev.codex.envpeer",
+      "versionName": "1.0",
+      "versionCode": 1,
+      "applicationInfo": {
+        "packageName": "dev.codex.envpeer",
+        "processName": "dev.codex.envpeer",
+        "uid": 10316,
+        "dataDir": "/data/user/0/dev.codex.envpeer",
+        "credentialProtectedDataDir": "/data/user/0/dev.codex.envpeer",
+        "deviceProtectedDataDir": "/data/user_de/0/dev.codex.envpeer",
+        "sourceDir": "/data/app/~~RIw9nIHsuYjRmOqMRuRxgg==/dev.codex.envpeer-nXdHWzdVuelIJ4G9Y6FnmA==/base.apk",
+        "publicSourceDir": "/data/app/~~RIw9nIHsuYjRmOqMRuRxgg==/dev.codex.envpeer-nXdHWzdVuelIJ4G9Y6FnmA==/base.apk",
+        "nativeLibraryDir": "/data/app/~~RIw9nIHsuYjRmOqMRuRxgg==/dev.codex.envpeer-nXdHWzdVuelIJ4G9Y6FnmA==/lib/arm64",
+        "splitSourceDirs": [],
+        "splitPublicSourceDirs": [],
+        "splitNames": [],
+        "enabled": true,
+        "flags": 545799750,
+        "targetSdkVersion": 35,
+        "minSdkVersion": 24,
+        "className": null,
+        "taskAffinity": "dev.codex.envpeer"
+      },
+      "services": [
+        {
+          "packageName": "dev.codex.envpeer",
+          "name": "dev.codex.envpeer.PeerService",
+          "processName": "dev.codex.envpeer:service",
+          "exported": true,
+          "enabled": true,
+          "permission": null
+        }
+      ],
+      "providers": [
+        {
+          "packageName": "dev.codex.envpeer",
+          "name": "dev.codex.envpeer.PeerProvider",
+          "authority": "dev.codex.envpeer.provider",
+          "exported": true,
+          "enabled": true,
+          "processName": "dev.codex.envpeer:provider"
+        }
+      ]
+    },
+    "peerUid": 10316,
+    "installedPackagesCount": 339,
+    "installerPackageName": null,
+    "installSourceInfo": {
+      "initiating": "com.multipleapp.clonespace",
+      "installing": "com.multipleapp.clonespace",
+      "originating": "com.multipleapp.clonespace"
+    },
+    "padResolve": null,
+    "padQuery": [],
+    "ownProviderInfo": {
+      "packageName": "dev.codex.envprobe",
+      "name": "dev.codex.envprobe.ProbeProvider",
+      "authority": "dev.codex.envprobe.provider",
+      "exported": true,
+      "enabled": true,
+      "processName": "dev.codex.envprobe:probe_provider"
+    }
+  },
+  "permissionsAndAppOps": {
+    "cameraPermission": -1,
+    "readContactsPermission": -1,
+    "getAccountsPermission": 0,
+    "notificationsPermission": -1,
+    "readContactsAppOp": 1
+  },
+  "accounts": {
+    "getAccountsPermission": 0,
+    "authenticatorTypes": [],
+    "googleAccountCount": 0
+  },
+  "binding": {
+    "resolveService": {
+      "packageName": "dev.codex.envprobe",
+      "name": "dev.codex.envprobe.ProbeService",
+      "processName": "dev.codex.envprobe:probe_service",
+      "exported": true,
+      "enabled": true,
+      "permission": null
+    },
+    "queryIntentServices": [
+      {
+        "packageName": "dev.codex.envprobe",
+        "name": "dev.codex.envprobe.ProbeService",
+        "processName": "dev.codex.envprobe:probe_service",
+        "exported": true,
+        "enabled": true,
+        "permission": null
+      }
+    ],
+    "bindResult": true,
+    "connectedAtElapsedMs": 5199552,
+    "component": "dev.codex.envprobe/dev.codex.envprobe.ProbeService",
+    "binderClass": "android.os.BinderProxy",
+    "descriptor": "dev.codex.envprobe.ProbeService",
+    "callerIdentity": {
+      "serviceCallingUid": 10316,
+      "serviceCallingPid": 16331,
+      "serviceProcessUid": 10316,
+      "serviceProcessPid": 16380
+    }
+  },
+  "peerBinding": {
+    "resolveService": {
+      "packageName": "dev.codex.envpeer",
+      "name": "dev.codex.envpeer.PeerService",
+      "processName": "dev.codex.envpeer:service",
+      "exported": true,
+      "enabled": true,
+      "permission": null
+    },
+    "bindResult": true,
+    "component": "dev.codex.envpeer/dev.codex.envpeer.PeerService",
+    "descriptor": "dev.codex.envpeer.PeerService",
+    "callerIdentity": {
+      "serviceCallingUid": 10316,
+      "serviceCallingPid": 16331,
+      "serviceProcessUid": 10316,
+      "serviceProcessPid": 16386
+    }
+  },
+  "provider": {
+    "query": {
+      "value": "probe-ok",
+      "callingUid": 10316,
+      "callingPid": 16331,
+      "processUid": 10316,
+      "processPid": 16450
+    }
+  },
+  "runtime": {
+    "sdk": 37,
+    "supportedAbis": [
+      "arm64-v8a"
+    ],
+    "manufacturer": "Google",
+    "model": "Pixel 7 Pro",
+    "fingerprint": "google/cheetah/cheetah:17/CP2A.260705.006/15641320:user/release-keys",
+    "classLoader": "dalvik.system.PathClassLoader[DexPathList[[zip file \"/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk\"],nativeLibraryDirectories=[/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/lib/arm64, /data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk!/lib/arm64-v8a, /system/lib64, /system_ext/lib64]]]",
+    "contextClassLoader": "dalvik.system.PathClassLoader[DexPathList[[zip file \"/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk\"],nativeLibraryDirectories=[/data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/lib/arm64, /data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk!/lib/arm64-v8a, /system/lib64, /system_ext/lib64]]]",
+    "javaLibraryPath": "/system/lib64:/system_ext/lib64",
+    "javaHome": "/apex/com.android.art",
+    "procCmdline": "dev.codex.envprobe                                                                                 ",
+    "mountNamespace": "mnt:[4026536853]",
+    "procStatus": [
+      "Name:\t.codex.envprobe",
+      "TracerPid:\t0",
+      "Uid:\t10316\t10316\t10316\t10316",
+      "Gid:\t10316\t10316\t10316\t10316"
+    ],
+    "procMapsSelected": [
+      "46000000-46004000 rw-p 00000000 00:00 0                                  [anon:dalvik-/data/misc/apexdata/...ork@com.android.location.provider.jar@classes.art]",
+      "4a004000-4a178000 rw-p 00000000 00:00 0                                  [anon:dalvik-/data/user/0/com.multipleapp.clonespace/cache/oat_primary/arm64/base.art]",
+      "700ac000-71554000 rw-p 00000000 00:00 0                                  [anon:dalvik-/data/misc/apexdata/com.android.art/dalvik-cache/boot.art]",
+      "71554000-71850000 r--p 00000000 fe:3f 1466350                            /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot.oat",
+      "71850000-72214000 r-xp 002fc000 fe:3f 1466350                            /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot.oat",
+      "72218000-72388000 rw-p 00000000 00:00 0                                  [anon:dalvik-/data/misc/apexdata/...id.art/dalvik-cache/boot-framework-adservices.art]",
+      "72388000-723ac000 r--p 00000000 fe:3f 16523                              /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot-framework-adservices.oat",
+      "723ac000-723cc000 r-xp 00024000 fe:3f 16523                              /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot-framework-adservices.oat",
+      "723cc000-723cd000 r--p 00044000 fe:3f 16523                              /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot-framework-adservices.oat",
+      "79bdae9000-79bdb9a000 r-xp 00000000 fe:3f 1381415                        /data/data/com.multipleapp.clonespace/vves/sdk/53/lib/arm64-v8a/liburpbrr.so",
+      "79bdb9e000-79bdba1000 r--p 000b1000 fe:3f 1381415                        /data/data/com.multipleapp.clonespace/vves/sdk/53/lib/arm64-v8a/liburpbrr.so",
+      "79bdba1000-79bdba3000 rw-p 000b4000 fe:3f 1381415                        /data/data/com.multipleapp.clonespace/vves/sdk/53/lib/arm64-v8a/liburpbrr.so",
+      "7a420af000-7a4210f000 r-xp 00000000 fe:3f 274425                         /data/data/com.multipleapp.clonespace/vves/sdk/53/lib/arm64-v8a/libmultipleappv.so",
+      "7a42112000-7a42115000 r--p 0005f000 fe:3f 274425                         /data/data/com.multipleapp.clonespace/vves/sdk/53/lib/arm64-v8a/libmultipleappv.so",
+      "7a42118000-7a42119000 rw-p 00061000 fe:3f 274425                         /data/data/com.multipleapp.clonespace/vves/sdk/53/lib/arm64-v8a/libmultipleappv.so",
+      "7a447ad000-7a447ed000 r-xp 00000000 fe:3f 897682                         /data/data/com.multipleapp.clonespace/vves/sdk/53/lib/arm64-v8a/libmultipleappvm.so",
+      "7a447f0000-7a447f5000 r--p 0003f000 fe:3f 897682                         /data/data/com.multipleapp.clonespace/vves/sdk/53/lib/arm64-v8a/libmultipleappvm.so",
+      "7a447f8000-7a447f9000 rw-p 00043000 fe:3f 897682                         /data/data/com.multipleapp.clonespace/vves/sdk/53/lib/arm64-v8a/libmultipleappvm.so",
+      "7a494d8000-7a49c01000 r--p 0026c000 fe:3f 898832                         /data/app/~~SQdISGQvXMRVZvOqI1X5kw==/com.multipleapp.clonespace-UkKKZHC7M7zaJbbpqHzrCw==/base.apk",
+      "7a92456000-7a92459000 r-xp 0000c000 fe:3f 1957464                        /data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk",
+      "7a9245c000-7a9245e000 r--p 0000e000 fe:3f 1957464                        /data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk",
+      "7a9866a000-7a98672000 r--p 00000000 fe:3f 1466234                        /data/misc/apexdata/com.android.art/dalvik-cache/arm64/system@framework@com.android.location.provider.jar@classes.odex",
+      "7a98672000-7a98679000 r-xp 00008000 fe:3f 1466234                        /data/misc/apexdata/com.android.art/dalvik-cache/arm64/system@framework@com.android.location.provider.jar@classes.odex",
+      "7a9867a000-7a9867b000 r--p 00010000 fe:3f 1466234                        /data/misc/apexdata/com.android.art/dalvik-cache/arm64/system@framework@com.android.location.provider.jar@classes.odex",
+      "7aa0c61000-7aa0e72000 rw-p 00000000 fe:3f 1450756                        /data/data/com.multipleapp.clonespace/vves/sdk/53/oat/arm64/base.vdex",
+      "7aa0e72000-7aa0f06000 r--s 009fb000 fe:3f 898832                         /data/app/~~SQdISGQvXMRVZvOqI1X5kw==/com.multipleapp.clonespace-UkKKZHC7M7zaJbbpqHzrCw==/base.apk",
+      "7ada2bf000-7ada473000 r--p 00000000 fe:1a 55                             /apex/com.android.art/lib64/libart.so",
+      "7ada4bf000-7adad0a000 r-xp 00200000 fe:1a 55                             /apex/com.android.art/lib64/libart.so",
+      "7adaebf000-7adaef1000 r--p 00c00000 fe:1a 55                             /apex/com.android.art/lib64/libart.so",
+      "7adb0bf000-7adb0c3000 rw-p 00e00000 fe:1a 55                             /apex/com.android.art/lib64/libart.so",
+      "7adde51000-7addf4b000 rw-p 00000000 fe:3f 1466062                        /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot.vdex",
+      "7d8deda000-7d8df15000 rw-p 00000000 fe:3f 1674973                        /data/app/~~SQdISGQvXMRVZvOqI1X5kw==/com.multipleapp.clonespace-UkKKZHC7M7zaJbbpqHzrCw==/oat/arm64/base.vdex",
+      "7d9bbea000-7d9bbfd000 r--s 00a92000 fe:3f 898832                         /data/app/~~SQdISGQvXMRVZvOqI1X5kw==/com.multipleapp.clonespace-UkKKZHC7M7zaJbbpqHzrCw==/base.apk",
+      "7d9ec02000-7d9ec08000 r--s 00000000 fe:3f 1453081                        /data/app/~~SQdISGQvXMRVZvOqI1X5kw==/com.multipleapp.clonespace-UkKKZHC7M7zaJbbpqHzrCw==/split_config.es.apk",
+      "7d9ec76000-7d9ec77000 r--s 00004000 fe:3f 1957464                        /data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk",
+      "7d9ec78000-7d9ec79000 r--s 00023000 fe:3f 1957464                        /data/app/~~1UxkZ7ACk8Gy3YUVLCdgbQ==/dev.codex.envprobe-r6XiCE9g4ETKWEdupR5DuQ==/base.apk",
+      "7d9ec7a000-7d9ec82000 r--s 00000000 fe:3f 1413062                        /data/app/~~SQdISGQvXMRVZvOqI1X5kw==/com.multipleapp.clonespace-UkKKZHC7M7zaJbbpqHzrCw==/split_config.en.apk",
+      "7d9ecaf000-7d9ecb1000 r--s 00000000 fe:3f 271245                         /data/resource-cache/data@resource-cache@com.android.systemui-dynamic-hwlN.frro@idmap",
+      "7d9ecb1000-7d9ecb2000 r--s 00000000 fe:3f 271219                         /data/resource-cache/data@resource-cache@com.android.systemui-accent-TXAY.frro@idmap",
+      "7d9ecf1000-7d9ecf2000 r--s 00000000 fe:3f 271230                         /data/resource-cache/data@resource-cache@com.android.systemui-neutral-AbT8.frro@idmap",
+      "7d9edb9000-7d9edbe000 r--s 00008000 fe:3f 1467106                        /data/app/~~SQdISGQvXMRVZvOqI1X5kw==/com.multipleapp.clonespace-UkKKZHC7M7zaJbbpqHzrCw==/split_config.xxxhdpi.apk",
+      "7d9edee000-7d9edef000 r--s 00000000 fe:3f 45535                          /data/resource-cache/product@overlay@NavigationBarModeGestural@NavigationBarModeGesturalOverlay.apk@idmap",
+      "7d9edef000-7d9edf1000 r--s 00010000 fe:3f 1467106                        /data/app/~~SQdISGQvXMRVZvOqI1X5kw==/com.multipleapp.clonespace-UkKKZHC7M7zaJbbpqHzrCw==/split_config.xxxhdpi.apk",
+      "7d9edf1000-7d9edf2000 r--s 00009000 fe:3f 1453081                        /data/app/~~SQdISGQvXMRVZvOqI1X5kw==/com.multipleapp.clonespace-UkKKZHC7M7zaJbbpqHzrCw==/split_config.es.apk",
+      "7d9edf2000-7d9edf3000 r--s 0000b000 fe:3f 1413062                        /data/app/~~SQdISGQvXMRVZvOqI1X5kw==/com.multipleapp.clonespace-UkKKZHC7M7zaJbbpqHzrCw==/split_config.en.apk",
+      "7d9edf3000-7d9edf4000 r--s 004d4000 fe:3f 1465337                        /data/app/~~SQdISGQvXMRVZvOqI1X5kw==/com.multipleapp.clonespace-UkKKZHC7M7zaJbbpqHzrCw==/split_config.arm64_v8a.apk",
+      "7d9ef7e000-7d9ef7f000 r--p 00004000 fe:3f 1466088                        /data/misc/apexdata/com.android.art/dalvik-cache/arm64/system@framework@com.android.location.provider.jar@classes.art",
+      "7d9efe6000-7d9efe7000 rw-p 00000000 fe:3f 271286                         /data/misc/apexdata/com.android.art/dalvik-cache/arm64/system@framework@com.android.location.provider.jar@classes.vdex",
+      "7da06ac000-7da06ad000 r--s 00000000 fe:3f 623                            /data/resource-cache/product@overlay@PixelConfigOverlay2021.apk@idmap",
+      "7da06af000-7da06b0000 r--s 00000000 fe:3f 622                            /data/resource-cache/product@overlay@GlanceableHubConfigOverlay.apk@idmap",
+      "7da06b2000-7da06b3000 r--s 00000000 fe:3f 621                            /data/resource-cache/product@overlay@PixelConfigOverlay2019.apk@idmap",
+      "7da06b5000-7da06b6000 r--s 00000000 fe:3f 620                            /data/resource-cache/product@overlay@PixelConfigOverlay2019Midyear.apk@idmap",
+      "7da06dc000-7da06dd000 r--s 00000000 fe:3f 619                            /data/resource-cache/product@overlay@PixelConfigOverlay2018.apk@idmap",
+      "7da06de000-7da06df000 r--s 00000000 fe:3f 618                            /data/resource-cache/product@overlay@framework-res__cheetah__auto_generated_rro_product.apk@idmap",
+      "7da077e000-7da077f000 r--s 00000000 fe:3f 617                            /data/resource-cache/product@overlay@VerifierResOverlay.apk@idmap",
+      "7da0780000-7da0781000 r--s 00000000 fe:3f 616                            /data/resource-cache/product@overlay@PixelConfigOverlayCommon.apk@idmap",
+      "7da0783000-7da0784000 r--s 00000000 fe:3f 615                            /data/resource-cache/product@overlay@GoogleWebViewOverlay.apk@idmap",
+      "7da1140000-7da117c000 rw-p 00000000 fe:3f 1966653                        /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot-framework-adservices.vdex",
+      "7da12cc000-7da12ee000 r--p 00798000 fe:3f 1466101                        /data/misc/apexdata/com.android.art/dalvik-cache/arm64/boot.art"
+    ],
+    "procMountinfoSelected": [
+      "41852 41851 254:63 /user_de/0/com.multipleapp.clonespace /data/user_de/0/com.multipleapp.clonespace rw,nosuid,nodev,noatime master:38 - f2fs /dev/block/dm-63 rw,lazytime,seclabel,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,reserve_node=0,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,compress_algorithm=lz4,compress_log_size=2,compress_mode=fs,compress_cache,atgc,memory=normal,lookup_mode=perf",
+      "41853 41849 254:63 /data/com.multipleapp.clonespace /data/data/com.multipleapp.clonespace rw,nosuid,nodev,noatime master:38 - f2fs /dev/block/dm-63 rw,lazytime,seclabel,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,reserve_node=0,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,compress_algorithm=lz4,compress_log_size=2,compress_mode=fs,compress_cache,atgc,memory=normal,lookup_mode=perf",
+      "41858 41856 254:63 /misc/profiles/cur/0/com.multipleapp.clonespace /data/misc/profiles/cur/0/com.multipleapp.clonespace rw,nosuid,nodev,noatime master:38 - f2fs /dev/block/dm-63 rw,lazytime,seclabel,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,reserve_node=0,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,compress_algorithm=lz4,compress_log_size=2,compress_mode=fs,compress_cache,atgc,memory=normal,lookup_mode=perf",
+      "41859 41857 254:63 /misc/profiles/ref/com.multipleapp.clonespace /data/misc/profiles/ref/com.multipleapp.clonespace rw,nosuid,nodev,noatime master:38 - f2fs /dev/block/dm-63 rw,lazytime,seclabel,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,reserve_node=0,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,compress_algorithm=lz4,compress_log_size=2,compress_mode=fs,compress_cache,atgc,memory=normal,lookup_mode=perf"
+    ],
+    "systemProperties": {
+      "ro.build.version.sdk": "37",
+      "ro.product.cpu.abi": "arm64-v8a",
+      "ro.product.model": "Pixel 7 Pro",
+      "ro.build.fingerprint": "google/cheetah/cheetah:17/CP2A.260705.006/15641320:user/release-keys",
+      "ro.debuggable": "",
+      "ro.secure": "",
+      "dalvik.vm.isa.arm64.features": "default"
+    }
+  }
+}

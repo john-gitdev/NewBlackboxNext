@@ -13,9 +13,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 DEFAULTS = {
-    "normal": "normal-v9.json",
-    "multiple-app": "multiple-app-v9.json",
-    "blackbox": "blackbox-native-v10.json",
+    "normal": "normal-framework-ce-v11.json",
+    "multiple-app": "multiple-app-framework-ce-v11.json",
+    "blackbox": "blackbox-cold-framework-ce-v11.json",
 }
 
 
@@ -52,7 +52,7 @@ class PackageUidConsistencyTest(unittest.TestCase):
     def test_blackbox_nonzero_virtual_user(self):
         # Process.myUid/Os.getuid currently expose only the appId. A direct
         # full-UID substitution broke host-framework calls for physical user 0.
-        result = json.loads((ROOT / "blackbox-native-user1-v10.json").read_text(encoding="utf-8"))
+        result = json.loads((ROOT / "blackbox-user1-framework-ce-v11.json").read_text(encoding="utf-8"))
         identity = result["identity"]
         pm_uid = result["applicationInfo"]["pmApplicationInfo"]["uid"]
         self.assertEqual(110023, pm_uid)
@@ -215,10 +215,10 @@ class NativeFilesystemTest(unittest.TestCase):
 
     def test_blackbox_virtual_users_have_distinct_backing_files(self):
         user0 = capture("blackbox")
-        user1 = json.loads((ROOT / "blackbox-native-user1-v10.json").read_text(encoding="utf-8"))
+        user1 = json.loads((ROOT / "blackbox-user1-framework-ce-v11.json").read_text(encoding="utf-8"))
         self.assertEqual(user0["nativeFilesystem"]["logicalPath"]["path"],
                          user1["nativeFilesystem"]["logicalPath"]["path"])
-        self.assertNotEqual(user0["directories"]["dataDir"], user1["directories"]["dataDir"])
+        self.assertEqual(user0["directories"]["dataDir"], user1["directories"]["dataDir"])
         self.assertNotEqual(user0["directories"]["isolationMarker"]["written"],
                             user1["directories"]["isolationMarker"]["written"])
         self.assertNotEqual(user0["nativeFilesystem"]["logicalPath"]["stat"],
