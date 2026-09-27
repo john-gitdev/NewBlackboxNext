@@ -131,12 +131,13 @@ public final class ProbeActivity extends Activity {
 
     private void snapshot() {
         JSONObject root = new JSONObject();
-        put(root, "schema", 6);
+        put(root, "schema", 7);
         put(root, "timestampUtcMs", System.currentTimeMillis());
         put(root, "lifecycle", lifecycle);
         put(root, "identity", identity());
         put(root, "applicationInfo", applicationInfo());
         put(root, "directories", directories());
+        put(root, "peerProvider", peerProvider());
         put(root, "nativeFilesystem", nativeFilesystem());
         put(root, "packageManager", packageManager());
         put(root, "permissionsAndAppOps", permissionsAndAppOps());
@@ -144,7 +145,6 @@ public final class ProbeActivity extends Activity {
         put(root, "binding", binding);
         put(root, "peerBinding", peerBinding);
         put(root, "provider", provider());
-        put(root, "peerProvider", peerProvider());
         put(root, "runtime", runtime());
         String id = Long.toHexString(System.currentTimeMillis()) + "-" + Process.myPid();
         String json = root.toString();
@@ -310,17 +310,62 @@ public final class ProbeActivity extends Activity {
         field(j, "libraryName", () -> System.mapLibraryName("envprobe"));
         File marker = new File(getFilesDir(), "envprobe-isolation-marker.txt");
         String logical = "/data/user/0/" + getPackageName() + "/files/" + marker.getName();
+        String logicalDe = "/data/user_de/0/" + getPackageName() +
+                "/files/envprobe-device-marker.txt";
         field(j, "backingPath", () -> nativePathFacts(marker.getAbsolutePath()));
         field(j, "logicalPath", () -> nativePathFacts(logical));
+        field(j, "logicalDataAlias", () -> nativePathFacts(
+                "/data/data/" + getPackageName() + "/files/" + marker.getName()));
+        field(j, "logicalDeviceProtectedPath", () -> nativePathFacts(logicalDe));
         field(j, "deviceProtectedPath", () -> nativePathFacts(new File(
                 createDeviceProtectedStorageContext().getFilesDir(),
                 "envprobe-device-marker.txt").getAbsolutePath()));
+        field(j, "nativeWriteCe", () -> {
+            String name = "envprobe-native-marker.txt";
+            String path = "/data/user/0/" + getPackageName() + "/files/" + name;
+            String value = "native;pid=" + Process.myPid() + ";time=" + System.currentTimeMillis();
+            JSONObject o = new JSONObject();
+            put(o, "status", NativePathProbe.writeLogical(path, value));
+            put(o, "written", value);
+            field(o, "javaRead", () -> readSmall(new File(getFilesDir(), name).getAbsolutePath(), 300));
+            field(o, "nativeRead", () -> NativePathProbe.inspect(path)[0]);
+            return o;
+        });
+        field(j, "nativeWriteDe", () -> {
+            String name = "envprobe-native-device-marker.txt";
+            String path = "/data/user_de/0/" + getPackageName() + "/files/" + name;
+            String value = "native-de;pid=" + Process.myPid() + ";time=" + System.currentTimeMillis();
+            JSONObject o = new JSONObject();
+            put(o, "status", NativePathProbe.writeLogical(path, value));
+            put(o, "written", value);
+            field(o, "javaRead", () -> readSmall(new File(
+                    createDeviceProtectedStorageContext().getFilesDir(), name).getAbsolutePath(), 300));
+            field(o, "nativeRead", () -> NativePathProbe.inspect(path)[0]);
+            return o;
+        });
+        field(j, "peerLogicalPath", () -> nativePathFacts(
+                "/data/user/0/dev.codex.envpeer/files/envpeer-isolation-marker.txt"));
+        field(j, "prefixNeighborPath", () -> nativePathFacts(
+                "/data/user/0/" + getPackageName() + ".suffix/files/" + marker.getName()));
+        field(j, "parentTraversalPath", () -> nativePathFacts(
+                "/data/user/0/" + getPackageName() +
+                "/../dev.codex.envpeer/files/envpeer-isolation-marker.txt"));
+        field(j, "mutations", () -> {
+            String[] values = NativePathProbe.exerciseMutations(
+                    "/data/user/0/" + getPackageName() + "/files", logical);
+            JSONObject o = new JSONObject();
+            put(o, "status", values[0]);
+            put(o, "symlinkRead", values[1]);
+            put(o, "symlinkTarget", values[2]);
+            return o;
+        });
         return j;
     }
 
     private JSONObject nativePathFacts(String path) {
         String[] names = {"openRead", "openatRead", "stat", "lstat", "readlink",
-                "realpath", "procSelfFdReadlink"};
+                "realpath", "procSelfFdReadlink", "access", "faccessat", "fstatat",
+                "procSelfFdReadlinkat", "open64Read", "openat64Read"};
         String[] values = NativePathProbe.inspect(path);
         JSONObject j = new JSONObject();
         put(j, "path", path);
@@ -441,6 +486,8 @@ public final class ProbeActivity extends Activity {
                 put(o, "callingPid", c.getInt(2));
                 put(o, "processUid", c.getInt(3));
                 put(o, "processPid", c.getInt(4));
+                put(o, "markerPath", c.getString(5));
+                put(o, "markerValue", c.getString(6));
                 return o;
             }
         });

@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import top.niunaijun.blackbox.BlackBoxCore;
@@ -28,7 +27,6 @@ public class IOCore {
     public static final String TAG = "IOCore";
 
     private static final IOCore sIOCore = new IOCore();
-    private static final TrieTree mTrieTree = new TrieTree();
     private static final TrieTree sBlackTree = new TrieTree();
     private final Map<String, String> mRedirectMap = new LinkedHashMap<>();
 
@@ -43,8 +41,9 @@ public class IOCore {
         if (TextUtils.isEmpty(origPath) || TextUtils.isEmpty(redirectPath) || mRedirectMap.get(origPath) != null)
             return;
         
-        mTrieTree.add(origPath);
-        mRedirectMap.put(origPath, redirectPath);
+        synchronized (mRedirectMap) {
+            mRedirectMap.put(origPath, redirectPath);
+        }
         File redirectFile = new File(redirectPath);
         if (!redirectFile.exists()) {
             FileUtils.mkdirs(redirectPath);
@@ -69,11 +68,9 @@ public class IOCore {
             return search;
 
         
-        String key = mTrieTree.search(path);
-        if (!TextUtils.isEmpty(key))
-            path = path.replace(key, Objects.requireNonNull(mRedirectMap.get(key)));
-
-        return path;
+        synchronized (mRedirectMap) {
+            return redirectWithRules(path, mRedirectMap);
+        }
     }
 
     public File redirectPath(File path) {
@@ -88,11 +85,44 @@ public class IOCore {
             return path;
 
         
-        String key = mTrieTree.search(path);
-        if (!TextUtils.isEmpty(key))
-            path = path.replace(key, Objects.requireNonNull(rule.get(key)));
+        return redirectWithRules(path, rule);
+    }
 
-        return path;
+    private static String redirectWithRules(String path, Map<String, String> rules) {
+        if (!path.startsWith("/")) return path;
+        String best = null;
+        String destination = null;
+        for (Map.Entry<String, String> entry : rules.entrySet()) {
+            String key = entry.getKey();
+            if ((best == null || key.length() > best.length()) &&
+                    path.startsWith(key) &&
+                    (path.length() == key.length() || key.endsWith("/") ||
+                            path.charAt(key.length()) == '/') &&
+                    !escapesRuleRoot(path, key.length())) {
+                best = key;
+                destination = entry.getValue();
+            }
+        }
+        return best == null ? path : destination + path.substring(best.length());
+    }
+
+    private static boolean escapesRuleRoot(String path, int offset) {
+        int depth = 0;
+        int index = offset;
+        while (index < path.length()) {
+            while (index < path.length() && path.charAt(index) == '/') index++;
+            int start = index;
+            while (index < path.length() && path.charAt(index) != '/') index++;
+            if (start == index) break;
+            String part = path.substring(start, index);
+            if ("..".equals(part)) {
+                if (depth == 0) return true;
+                depth--;
+            } else if (!".".equals(part)) {
+                depth++;
+            }
+        }
+        return false;
     }
 
     public File redirectPath(File path, Map<String, String> rule) {
@@ -117,6 +147,8 @@ public class IOCore {
 
             rule.put(String.format("/data/data/%s", packageName), packageInfo.dataDir);
             rule.put(String.format("/data/user/%d/%s", systemUserId, packageName), packageInfo.dataDir);
+            rule.put(String.format("/data/user_de/%d/%s", systemUserId, packageName),
+                    BEnvironment.getDeDataDir(packageName, BlackBoxCore.getUserId()).getAbsolutePath());
 
             
             File profilesRoot = new File(BEnvironment.getVirtualRoot(), "profiles");

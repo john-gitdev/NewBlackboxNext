@@ -1,9 +1,8 @@
-"""Regression checks over captures from the same unmodified probe APK.
+"""Regression checks over captures from the same generic probe APK.
 
 Run with: python -m unittest discover -s android-env-probe -p 'test_*.py'
 Override any capture with ENVPROBE_NORMAL_CAPTURE, ENVPROBE_MULTIPLE_APP_CAPTURE,
-or ENVPROBE_BLACKBOX_CAPTURE. The default BlackBox capture is the tested branch
-build; the historical v5 and v6 baseline captures remain untouched.
+or ENVPROBE_BLACKBOX_CAPTURE. Historical captures remain untouched.
 """
 
 import json
@@ -14,9 +13,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 DEFAULTS = {
-    "normal": "normal-v7.json",
-    "multiple-app": "multiple-app-v7.json",
-    "blackbox": "blackbox-compat-v7.json",
+    "normal": "normal-v9.json",
+    "multiple-app": "multiple-app-v9.json",
+    "blackbox": "blackbox-native-v10.json",
 }
 
 
@@ -53,7 +52,7 @@ class PackageUidConsistencyTest(unittest.TestCase):
     def test_blackbox_nonzero_virtual_user(self):
         # Process.myUid/Os.getuid currently expose only the appId. A direct
         # full-UID substitution broke host-framework calls for physical user 0.
-        result = json.loads((ROOT / "blackbox-compat-user1-v7.json").read_text(encoding="utf-8"))
+        result = json.loads((ROOT / "blackbox-native-user1-v10.json").read_text(encoding="utf-8"))
         identity = result["identity"]
         pm_uid = result["applicationInfo"]["pmApplicationInfo"]["uid"]
         self.assertEqual(110023, pm_uid)
@@ -82,7 +81,10 @@ class TwoPackageInteractionTest(unittest.TestCase):
         self.assert_interactions(capture("normal"))
 
     def test_working_container(self):
-        self.assert_interactions(capture("multiple-app"))
+        # The refreshed v9 clone no longer exposes the old peer clone. The
+        # preceding same-APK v8 run established this interaction separately.
+        result = json.loads((ROOT / "multiple-app-v8.json").read_text(encoding="utf-8"))
+        self.assert_interactions(result)
 
     def test_blackbox(self):
         self.assert_interactions(capture("blackbox"))
@@ -150,9 +152,7 @@ class NativeFilesystemTest(unittest.TestCase):
     def test_working_container_logical_path(self):
         self.assert_logical_path_works(capture("multiple-app"))
 
-    @unittest.expectedFailure
     def test_blackbox_logical_path(self):
-        # Architectural gap: Java redirects this path, native libc currently does not.
         self.assert_logical_path_works(capture("blackbox"))
 
     def assert_logical_path_works(self, result):
@@ -160,8 +160,78 @@ class NativeFilesystemTest(unittest.TestCase):
         native = result["nativeFilesystem"]["logicalPath"]
         self.assertEqual(expected, native["openRead"])
         self.assertEqual(expected, native["openatRead"])
+        self.assertEqual(expected, native["open64Read"])
+        self.assertEqual(expected, native["openat64Read"])
         self.assertFalse(native["stat"].startswith("ERR:"))
+        self.assertFalse(native["lstat"].startswith("ERR:"))
+        self.assertEqual(native["stat"], native["fstatat"])
+        self.assertEqual("OK", native["access"])
+        self.assertEqual("OK", native["faccessat"])
         self.assertFalse(native["realpath"].startswith("ERR:"))
+        self.assertIn("/dev.codex.envprobe/files/", native["realpath"])
+        self.assertTrue(native["readlink"].startswith("ERR:"))  # regular file
+        self.assertIn("/dev.codex.envprobe/files/", native["procSelfFdReadlink"])
+        self.assertEqual(native["procSelfFdReadlink"], native["procSelfFdReadlinkat"])
+
+    def test_native_writes_visible_to_java_in_ce_and_de(self):
+        for name in ("normal", "multiple-app", "blackbox"):
+            with self.subTest(environment=name):
+                result = capture(name)
+                native = result["nativeFilesystem"]
+                self.assertEqual(result["directories"]["deviceProtectedMarker"]["readBack"],
+                                 native["logicalDeviceProtectedPath"]["openRead"])
+                for storage in ("nativeWriteCe", "nativeWriteDe"):
+                    self.assertEqual("OK", native[storage]["status"])
+                    self.assertEqual(native[storage]["written"], native[storage]["javaRead"])
+                    self.assertEqual(native[storage]["written"], native[storage]["nativeRead"])
+
+    def test_other_package_and_prefix_neighbor_remain_inaccessible(self):
+        for name in ("normal", "multiple-app", "blackbox"):
+            with self.subTest(environment=name):
+                result = capture(name)
+                if name != "multiple-app":
+                    self.assertTrue(result["peerProvider"]["query"]["markerValue"].startswith("peer;"))
+                native = result["nativeFilesystem"]
+                self.assertTrue(native["peerLogicalPath"]["openRead"].startswith("ERR:"))
+                self.assertTrue(native["prefixNeighborPath"]["openRead"].startswith("ERR:"))
+                self.assertTrue(native["parentTraversalPath"]["openRead"].startswith("ERR:"))
+
+    def test_native_mutations_and_symlink(self):
+        for name in ("normal", "blackbox"):
+            with self.subTest(environment=name):
+                result = capture(name)
+                mutations = result["nativeFilesystem"]["mutations"]
+                self.assertEqual("OK", mutations["status"])
+                self.assertEqual(result["directories"]["isolationMarker"]["written"],
+                                 mutations["symlinkRead"])
+                self.assertIn("/dev.codex.envprobe/files/envprobe-isolation-marker.txt",
+                              mutations["symlinkTarget"])
+        # Multiple App's refreshed clone can create/read the symlink but its
+        # dirfd-relative renameat returns ENOENT. It is a reference, not an oracle.
+        reference = capture("multiple-app")
+        self.assertEqual("ERR:renameat:2", reference["nativeFilesystem"]["mutations"]["status"])
+        self.assertEqual(reference["directories"]["isolationMarker"]["written"],
+                         reference["nativeFilesystem"]["mutations"]["symlinkRead"])
+
+    def test_blackbox_virtual_users_have_distinct_backing_files(self):
+        user0 = capture("blackbox")
+        user1 = json.loads((ROOT / "blackbox-native-user1-v10.json").read_text(encoding="utf-8"))
+        self.assertEqual(user0["nativeFilesystem"]["logicalPath"]["path"],
+                         user1["nativeFilesystem"]["logicalPath"]["path"])
+        self.assertNotEqual(user0["directories"]["dataDir"], user1["directories"]["dataDir"])
+        self.assertNotEqual(user0["directories"]["isolationMarker"]["written"],
+                            user1["directories"]["isolationMarker"]["written"])
+        self.assertNotEqual(user0["nativeFilesystem"]["logicalPath"]["stat"],
+                            user1["nativeFilesystem"]["logicalPath"]["stat"])
+        self.assertNotEqual(user0["directories"]["deviceProtectedMarker"]["readBack"],
+                            user1["directories"]["deviceProtectedMarker"]["readBack"])
+        for result in (user0, user1):
+            self.assert_logical_path_works(result)
+            self.assertEqual(result["directories"]["isolationMarker"]["written"],
+                             result["nativeFilesystem"]["logicalPath"]["openRead"])
+            self.assertEqual("OK", result["nativeFilesystem"]["nativeWriteCe"]["status"])
+            self.assertEqual("OK", result["nativeFilesystem"]["nativeWriteDe"]["status"])
+            self.assertEqual("OK", result["nativeFilesystem"]["mutations"]["status"])
 
 
 if __name__ == "__main__":

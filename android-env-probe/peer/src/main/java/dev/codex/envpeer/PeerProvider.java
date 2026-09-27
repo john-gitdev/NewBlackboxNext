@@ -8,13 +8,26 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.Process;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
 public final class PeerProvider extends ContentProvider {
     @Override public boolean onCreate() { return true; }
     @Override public Cursor query(Uri uri, String[] projection, String selection,
             String[] selectionArgs, String sortOrder) {
-        MatrixCursor c = new MatrixCursor(new String[]{"value", "callingUid", "callingPid", "processUid", "processPid"});
+        File marker = new File(getContext().getFilesDir(), "envpeer-isolation-marker.txt");
+        String markerValue = "peer;pid=" + Process.myPid() + ";time=" + System.currentTimeMillis();
+        try (FileOutputStream out = new FileOutputStream(marker)) {
+            out.write(markerValue.getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            markerValue = "ERR:" + e.getClass().getSimpleName();
+        }
+        MatrixCursor c = new MatrixCursor(new String[]{"value", "callingUid", "callingPid",
+                "processUid", "processPid", "markerPath", "markerValue"});
         c.addRow(new Object[]{"peer-ok", Binder.getCallingUid(), Binder.getCallingPid(),
-                Process.myUid(), Process.myPid()});
+                Process.myUid(), Process.myPid(), marker.getAbsolutePath(), markerValue});
         return c;
     }
     @Override public String getType(Uri uri) { return "vnd.android.cursor.item/vnd.dev.codex.envpeer"; }

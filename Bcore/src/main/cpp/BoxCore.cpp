@@ -102,9 +102,11 @@ void init(JNIEnv *env, jobject clazz, jint api_level) {
 
 void addIORule(JNIEnv *env, jclass clazz, jstring target_path,
                jstring relocate_path) {
-    ALOGD("set addIORule");
-    IO::addRule(env->GetStringUTFChars(target_path, JNI_FALSE),
-                env->GetStringUTFChars(relocate_path, JNI_FALSE));
+    const char *target = env->GetStringUTFChars(target_path, nullptr);
+    const char *replacement = env->GetStringUTFChars(relocate_path, nullptr);
+    IO::addRule(target, replacement);
+    env->ReleaseStringUTFChars(target_path, target);
+    env->ReleaseStringUTFChars(relocate_path, replacement);
 }
 
 void enableIO(JNIEnv *env, jclass clazz) {
