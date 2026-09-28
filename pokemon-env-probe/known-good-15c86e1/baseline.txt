@@ -1,0 +1,47 @@
+Known-good BlackBox/Pokémon check — 2026-09-27 (America/Los_Angeles)
+
+Source before proof pack: main @ 15c86e1; git status --short empty.
+No production source change, APK reinstall, app-data clear, or game instrumentation.
+Device: Pixel 7 Pro (cheetah), Android API 37.
+BlackBox: top.niunaijun.blackbox 4.0.0, versionCode 400, targetSdk 28.
+Installed APK: /data/app/~~wrMx-Tj9nSWDhRae9jUH8Q==/top.niunaijun.blackbox-WKyglGTH6CPnNgXhI4CIiw==/base.apk
+Installed APK SHA-256: aa1eda576042f2fc2b2ff5716295e8a481b24cc26fdf2606b0257e45b7f46a9a
+Built APK: app/build/outputs/apk/debug/BlackBox_4.0.0_arm64-v8a-debug.apk
+Built APK SHA-256: aa1eda576042f2fc2b2ff5716295e8a481b24cc26fdf2606b0257e45b7f46a9a
+Pokémon: jp.pokemon.pokemontcgp 1.7.2, versionCode 374561.
+
+Generic suite:
+  python -m unittest discover -s android-env-probe -p 'test_*.py' -v
+  Ran 32 tests: 31 passed; 1 expected nonzero-virtual-user UID failure.
+  Complete output: generic-suite.txt
+
+Pokémon virtual user: 0.
+Guest-facing ApplicationInfo.dataDir: /data/user/0/jp.pokemon.pokemontcgp
+  Prior temporary bind-time log: pokemon-env-probe/blackbox-logical-ce-bind-diagnostic-v11-logcat.txt:1133
+  That temporary diagnostic was removed before the installed APK above.
+Physical CE backing: /data/user/0/top.niunaijun.blackbox/blackbox/data/user/0/jp.pokemon.pokemontcgp
+  Confirmed present by: adb shell run-as top.niunaijun.blackbox ls -ld blackbox/data/user/0/jp.pokemon.pokemontcgp
+  Generic suite checks logical Java/native access, equal content/inode, user/package isolation.
+
+Each run: adb shell am force-stop top.niunaijun.blackbox (no data clear);
+adb logcat -c before launch; adb shell am start -W --user 0 -n
+top.niunaijun.blackbox/top.niunaijun.blackboxa.view.main.ShortcutActivity
+--es pkg jp.pokemon.pokemontcgp --ei userId 0; observe; adb logcat -d -v epoch.
+
+Run       Start local time          Observe   Screen                            Fatal/ANR   PAD -5
+Cold 1    17:39:42 -07:00          ~62 s     Daily Missions                    no          3
+Cold 2    17:41:37 -07:00          ~52 s     Team Rocket Special Assignments  no          3
+Cold 3    17:42:59 -07:00          ~52 s     30 Days of Gifts                 no          3
+Reopen    17:44:19 -07:00          ~78 s     Pack-opening tutorial           no          3
+
+Screens were visually inspected. The BlackBox proxy activity was resumed and
+the guest process remained present on every observation. The reopen screen was
+still loading at 48 seconds, then reached interactive UI at ~78 seconds.
+The preexisting app state had progressed past title/onboarding; no test input
+advanced gameplay. No old 16–20-second UnityMain SIGSEGV was observed.
+Representative full log: cold-1-logcat.txt. Representative screenshots:
+cold-1.png and reopen.png. All other successful logs were reviewed for
+SIGSEGV/fatal/ANR and PAD -5, then omitted to keep this proof pack compact.
+
+Optional IsVspaceApp/dvsa capture skipped: the existing mechanism requires
+native tracing and was disproportionate for a stable baseline check.

@@ -1,0 +1,37 @@
+test_peer_de_marker_exists_before_a_future_locked_boot (test_de_bootstrap_control.DeBootstrapControlTest.test_peer_de_marker_exists_before_a_future_locked_boot) ... ok
+test_virtual_users_have_distinct_unlocked_de_storage (test_de_bootstrap_control.DeBootstrapControlTest.test_virtual_users_have_distinct_unlocked_de_storage) ... ok
+test_blackbox_virtual_users_have_distinct_de_backing (test_direct_boot_control.UnlockedBootControlTest.test_blackbox_virtual_users_have_distinct_de_backing) ... ok
+test_both_broadcasts_read_the_same_de_file_in_java_and_native (test_direct_boot_control.UnlockedBootControlTest.test_both_broadcasts_read_the_same_de_file_in_java_and_native) ... ok
+test_blackbox_user_one (test_framework_ce_paths.FrameworkCePathsTest.test_blackbox_user_one) ... ok
+test_blackbox_user_zero (test_framework_ce_paths.FrameworkCePathsTest.test_blackbox_user_zero) ... ok
+test_logical_reads_match_host_backing_inodes_and_content (test_framework_ce_paths.FrameworkCePathsTest.test_logical_reads_match_host_backing_inodes_and_content) ... ok
+test_multiple_app (test_framework_ce_paths.FrameworkCePathsTest.test_multiple_app) ... ok
+test_normal_android (test_framework_ce_paths.FrameworkCePathsTest.test_normal_android) ... ok
+test_restart_keeps_namespace_and_prior_content (test_framework_ce_paths.FrameworkCePathsTest.test_restart_keeps_namespace_and_prior_content) ... ok
+test_virtual_users_share_namespace_but_not_files (test_framework_ce_paths.FrameworkCePathsTest.test_virtual_users_share_namespace_but_not_files) ... ok
+test_blackbox (test_uid_consistency.InstallSourceConsistencyTest.test_blackbox) ... ok
+test_normal_android (test_uid_consistency.InstallSourceConsistencyTest.test_normal_android) ... ok
+test_blackbox_logical_path (test_uid_consistency.NativeFilesystemTest.test_blackbox_logical_path) ... ok
+test_blackbox_virtual_users_have_distinct_backing_files (test_uid_consistency.NativeFilesystemTest.test_blackbox_virtual_users_have_distinct_backing_files) ... ok
+test_native_mutations_and_symlink (test_uid_consistency.NativeFilesystemTest.test_native_mutations_and_symlink) ... ok
+test_native_writes_visible_to_java_in_ce_and_de (test_uid_consistency.NativeFilesystemTest.test_native_writes_visible_to_java_in_ce_and_de) ... ok
+test_normal_android_logical_path (test_uid_consistency.NativeFilesystemTest.test_normal_android_logical_path) ... ok
+test_other_package_and_prefix_neighbor_remain_inaccessible (test_uid_consistency.NativeFilesystemTest.test_other_package_and_prefix_neighbor_remain_inaccessible) ... ok
+test_working_container_logical_path (test_uid_consistency.NativeFilesystemTest.test_working_container_logical_path) ... ok
+test_blackbox (test_uid_consistency.PackageUidConsistencyTest.test_blackbox) ... ok
+test_blackbox_nonzero_virtual_user (test_uid_consistency.PackageUidConsistencyTest.test_blackbox_nonzero_virtual_user) ... expected failure
+test_normal_android (test_uid_consistency.PackageUidConsistencyTest.test_normal_android) ... ok
+test_system_and_missing_package_behavior (test_uid_consistency.PackageUidConsistencyTest.test_system_and_missing_package_behavior) ... ok
+test_working_container (test_uid_consistency.PackageUidConsistencyTest.test_working_container) ... ok
+test_ce_de_and_native_backing_paths (test_uid_consistency.StorageAndRuntimeTest.test_ce_de_and_native_backing_paths) ... ok
+test_isolated_markers_across_three_environments (test_uid_consistency.StorageAndRuntimeTest.test_isolated_markers_across_three_environments) ... ok
+test_loaded_native_probe_and_runtime_identity (test_uid_consistency.StorageAndRuntimeTest.test_loaded_native_probe_and_runtime_identity) ... ok
+test_permission_and_appops_snapshot (test_uid_consistency.StorageAndRuntimeTest.test_permission_and_appops_snapshot) ... ok
+test_blackbox (test_uid_consistency.TwoPackageInteractionTest.test_blackbox) ... ok
+test_normal_android (test_uid_consistency.TwoPackageInteractionTest.test_normal_android) ... ok
+test_working_container (test_uid_consistency.TwoPackageInteractionTest.test_working_container) ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 0.017s
+
+OK (expected failures=1)
