@@ -1,5 +1,7 @@
 # BlackBox - Virtual Engine
 
+**Current engineering state:** [NewBlackbox Master Summary](NEWBLACKBOX_MASTER_SUMMARY.md). The detailed Pokémon compatibility record is in [POKEMON_INVESTIGATION.md](POKEMON_INVESTIGATION.md); generic probe instructions are in [android-env-probe/README.md](android-env-probe/README.md).
+
 <p align="center">
   <img src="assets/usage.gif" alt="BlackBox Banner" width="100%"/>
 </p>
@@ -37,8 +39,8 @@ This enhanced edition includes bug fixes, stability improvements, and Android 14
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-repo/NewBlackbox.git
-cd NewBlackbox
+git clone https://github.com/john-gitdev/NewBlackboxNext.git
+cd NewBlackboxNext
 
 # Build Debug APK
 ./gradlew assembleDebug

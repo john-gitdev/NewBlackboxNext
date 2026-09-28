@@ -1,6 +1,6 @@
 # Pokémon TCG Pocket / BlackBox — consolidated investigation
 
-**Canonical document, updated 2026-09-27.** This combines the former investigation, Windows handoff, three-environment comparison, and generic probe instructions. Raw logs, JSON captures, probe source, and APK remain as separate artifacts.
+**Detailed evidence archive, updated 2026-09-27.** Read [NEWBLACKBOX_MASTER_SUMMARY.md](NEWBLACKBOX_MASTER_SUMMARY.md) first for current project state and priorities. This archive combines the former investigation, Windows handoff, three-environment comparison, and historical probe instructions. Raw logs, JSON captures, and probe source remain as separate artifacts; reproducible APK build output is Git-ignored. Later sections retain the conclusions and proposed next steps as they stood at the time, even when subsequently superseded.
 
 ## Read this first
 
@@ -113,6 +113,8 @@ The per-user DE marker contents and backing paths differ in BlackBox, while thei
 
 ## Native logical-path routing on main (2026-09-27)
 
+**Historical implementation milestone.** The later [CE path separation](#logical-ce-framework-paths-on-main-2026-09-27) and [known-good milestone](#known-good-milestone-15c86e1-2026-09-27) supersede this section's proposed next experiment. Its exact hook/test evidence remains useful.
+
 **Scope and model.** This work starts from `main` after the PackageManager UID and install-source fixes. It does not change `ApplicationInfo.dataDir`, Context directory answers, the game, PAD, target SDK, or installed app data. `IOCore.enableRedirect` remains the single producer of per-process logical-to-backing rules. The Java/libcore hooks and the new native libc hooks consume those same rules, so the conventional `/data/user/0/<guest>` and `/data/data/<guest>` paths resolve to the current virtual package/user's isolated backing directory. A new `/data/user_de/0/<guest>` rule resolves to that virtual user's DE backing directory. The mapping is longest-prefix and component-boundary aware: `<guest>` does not match `<guest>.suffix`, and a `..` suffix cannot escape a rule root. Already translated backing paths are not translated again. Native operations on dirfd-relative names use the backing directory fd opened by the same routing; absolute `*at` names are translated independently. Thread-local depth prevents hook recursion. These are general container rules, without a package-specific exception.
 
 **Exact native hooks.** `FileSystemHook` now installs Dobby hooks for libc `open`, `open64`, `__open_2`, `openat`, `openat64`, `__openat_2`, `stat`, `lstat`, `fstatat`, `access`, `faccessat`, `realpath`, `readlink`, and `readlinkat`. It also covers `rename`, `renameat`, `unlink`, `unlinkat`, `mkdir`, `mkdirat`, `rmdir`, `opendir`, `chdir`, `getcwd`, `symlink`, and `symlinkat` so creation, relative directory operations, and symlink targets use the same model. `newfstatat` is attempted where exported; it was unavailable in this device's libc. Android's `open64` and `openat64` alias their ordinary symbols here, while `__open_2` and `__openat_2` require separate hooks. The first device build without those FORTIFY entry points still returned `EACCES` for native `open`/`openat`; adding them made both work. Hook wrappers restore the incoming `errno` before calling libc and preserve the libc result on translated output. Successful `realpath`, `readlink[at]`, and `getcwd` of redirected backing paths return logical paths; `/proc/self/fd` link targets are also presented logically when the full target fits in the caller's buffer.
@@ -139,6 +141,8 @@ The BlackBox user-0 and user-1 logical path strings are identical, but their bac
 ---
 
 ## Current compatibility branch (2026-09-27)
+
+**Historical — superseded by the [known-good milestone](#known-good-milestone-15c86e1-2026-09-27) and [master summary](NEWBLACKBOX_MASTER_SUMMARY.md).** This section records the incremental plan and results as of that earlier branch state; do not interpret its open tasks as today's priority list.
 
 **Historical branch scope, now merged into `main`.** Branch `codex/android-compatibility` was created without resetting or stashing the existing dirty tree. That work changed general package-manager behavior and extended the independent probe. It did not alter Pokémon, game/security logic, PAD, target SDK, or app data. Pokémon was not rerun against those changes. The original known-installed BlackBox APK was restored after that phase; the later native-routing phase above installed a new SDK-28 `main` test build without clearing data.
 
@@ -176,6 +180,8 @@ Design a coherent logical-to-backing mapping across Java Context and PackageMana
 ---
 
 ## Generic Android environment comparison
+
+**Historical comparison baseline.** The later CE-path captures and 32-check suite supersede the remediation priorities in this section. Retain its original normal/Multiple App/BlackBox observations as evidence of the pre-fix state.
 
 **Historical 2026-09-26 v5 baseline.** The current branch results, fixes, and remaining failures are in [Current compatibility branch](#current-compatibility-branch-2026-09-27). The proposals and "next steps" below describe the state before those fixes.
 
@@ -219,7 +225,7 @@ No BlackBox source, game binary, security logic, or host target SDK was changed 
 
 ## Current operational brief
 
-**Historical 2026-09-26 brief, superseded by [Current compatibility branch](#current-compatibility-branch-2026-09-27).** Workspace: `C:/Users/johnw/repos/NewBlackbox` on Windows, PowerShell shell. This replaced the older, broader `HANDOFF.md` at that time. The earlier comparison and chronology below preserve evidence, but their proposed work predates the current branch.
+**Historical 2026-09-26 brief, superseded by [NEWBLACKBOX_MASTER_SUMMARY.md](NEWBLACKBOX_MASTER_SUMMARY.md).** Workspace: `C:/Users/johnw/repos/NewBlackbox` on Windows, PowerShell shell. This replaced the older, broader `HANDOFF.md` at that time. The earlier comparison and chronology below preserve evidence, but their proposed work predates the known-good CE-path baseline.
 
 ### Objective and boundaries
 
@@ -292,6 +298,8 @@ For any new candidate, record: (1) exactly what the **game** sees in BlackBox, (
 
 ### Practical next steps
 
+**Historical — these steps were proposed before the fixes in `24bf9bd`, `517766e`, and `15c86e1`; do not execute them as the current worklist.** See the [master summary](NEWBLACKBOX_MASTER_SUMMARY.md#11-safe-future-workflow-and-priorities).
+
 1. Use the generic probe results in [comparison](#generic-android-environment-comparison) as the new baseline. The strongest independently justified code candidate is `IPackageManagerProxy.GetPackageUid`: it returns the host UID for an installed guest package, contradicting the virtual `ApplicationInfo.uid`. Design a virtual-package answer and test missing packages and nonzero virtual users before changing it.
 2. Treat the unconditional Play Store installer name as a separate general bug. Define coherent virtual install-source metadata or an honest unknown/null value across both legacy and modern APIs; avoid another fabricated constant.
 3. Test the device-protected directory across direct boot before classifying its host credential-protected backing as a confirmed bug. Multiple App's logical private path plus isolated data is an architectural comparison, not a reason to cosmetically rewrite BlackBox's `dataDir` alone.
@@ -316,6 +324,8 @@ The dirty working tree holds substantial general BlackBox work from before this 
 ---
 
 ## Probe build and reproduction
+
+**Historical reproduction notes.** Use [android-env-probe/README.md](android-env-probe/README.md) for the current probe entry point and 32-check baseline. Capture names below describe the earlier stage and remain here for reproducibility.
 
 `dev.codex.envprobe` is a standalone, generic diagnostic APK. It contains no Pokémon code and does not alter either container. The same target-SDK-35 APK was installed normally, cloned into Multiple App (`com.multipleapp.clonespace`), and imported into BlackBox virtual user 0 and, separately, virtual user 1 on the same Pixel 7 Pro. The expanded comparison also uses `dev.codex.envpeer` in each environment for cross-package service/provider checks.
 
@@ -596,6 +606,8 @@ The true-state helper `+0x3190f90` reads an indirect callback pointer through gl
 **Changes and cleanup.** This follow-up only read the preserved ELF/disassembly and edited this report and the Windows handoff. It did not launch the game, install a probe, change source or binaries, or alter app data. There are no new temporary device changes to revert.
 
 ### General container comparison (2026-09-26, latest strategy)
+
+**Historical — “latest” meant the 2026-09-26 investigation stage.** The current conclusion and worklist are in the [master summary](NEWBLACKBOX_MASTER_SUMMARY.md); this subsection retains the original evidence and comparison.
 
 The same generic `dev.codex.envprobe` APK was run normally, in Multiple App (`com.multipleapp.clonespace`, the working parallel-container implementation), and in BlackBox virtual user 0. The APK does not contain Pokémon code or alter game logic. Full raw snapshots, an A/B/C classification table, source-level causes, and justified next steps are in [comparison](#generic-android-environment-comparison). Its final captures are `android-env-probe/{normal,multiple-app,blackbox}-v5.json`.
 

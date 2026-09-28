@@ -1,5 +1,7 @@
 # Release Notes - NewBlackbox
 
+> **Dated release history, not current project status.** For the current known-good behavior and open issues, start with [NEWBLACKBOX_MASTER_SUMMARY.md](NEWBLACKBOX_MASTER_SUMMARY.md).
+
 ## Version: Latest Build (2026-01-31)
 
 ---

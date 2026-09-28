@@ -1,5 +1,7 @@
 # BlackBox Virtual Environment - Complete User Guide
 
+> **Historical user/API guide.** This document predates the current compatibility baseline and its device/feature claims have not been revalidated. Use [NEWBLACKBOX_MASTER_SUMMARY.md](NEWBLACKBOX_MASTER_SUMMARY.md) for current engineering status and the repository source for API behavior.
+
 ## Table of Contents
 1. [Overview](#overview)
 2. [Installation & Setup](#installation--setup)
