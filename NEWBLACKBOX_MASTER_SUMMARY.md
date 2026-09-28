@@ -1,10 +1,10 @@
 # NewBlackbox Master Summary
 
-**Start here for current engineering state.** Updated 2026-09-27 from clean `main` at `089f1b0`. This document describes the last measured baseline; it is not a claim that every Android version or guest app works. [POKEMON_INVESTIGATION.md](POKEMON_INVESTIGATION.md) preserves the detailed evidence and historical hypotheses.
+**Start here for current engineering state.** The repository handoff was consolidated on `main` at `5dc2160` (documentation only). The known-good production CE-path behavior is from `15c86e1`, and `089f1b0` records its Pokémon proof pack. This document describes that measured baseline; it is not a claim that every Android version or guest app works. [POKEMON_INVESTIGATION.md](POKEMON_INVESTIGATION.md) preserves the detailed evidence and historical hypotheses.
 
 ## 1. Project purpose
 
-NewBlackbox is an Android userspace application-virtualization/container project. The host application runs installed guest packages under virtual package and user identities while providing Android framework, Binder, and filesystem compatibility. The aim is general Android behavior that works across apps. Pokémon TCG Pocket was a demanding integration case, not the purpose of the engine or a reason for package-specific changes.
+NewBlackbox is an Android userspace application-virtualization/container project. The host application runs installed guest packages under virtual package and user identities while providing Android framework, Binder, and filesystem compatibility. The aim is general Android behavior that works across apps. Pokémon TCG Pocket was a demanding integration case, not the sole purpose of the engine. Prefer general correctness fixes; evaluate any package-specific change on its evidence, scope, and regression risk rather than introducing one by default.
 
 ## 2. Current known-good baseline
 
@@ -12,13 +12,14 @@ NewBlackbox is an Android userspace application-virtualization/container project
 | --- | --- |
 | Production CE-path milestone | `15c86e1` — separates logical guest CE paths from physical backing; no guest data migration |
 | Later proof/documentation milestone | `089f1b0` — records working launches; no production code change |
+| Repository handoff milestone | `5dc2160` — consolidates current documentation; no production compatibility change |
 | Host/device | BlackBox `top.niunaijun.blackbox` 4.0.0, target SDK 28; Pixel 7 Pro, Android API 37 |
 | Installed host APK | SHA-256 `aa1eda576042f2fc2b2ff5716295e8a481b24cc26fdf2606b0257e45b7f46a9a`, matching the arm64 debug build |
 | Generic captured-result suite | 32 checks: 31 pass, one expected nonzero-virtual-user UID failure |
 | Pocket integration | Pocket 1.7.2 (`versionCode=374561`): three cold launches and one reopen reached usable in-game UI; no historical early UnityMain SIGSEGV in those runs |
 | Play Asset Delivery | Play Core still logged `onError(-5)` while the game reached usable UI |
 
-The compact [known-good proof pack](pokemon-env-probe/known-good-15c86e1/baseline.txt) contains the exact APK identity, suite output, a representative launch log, and screenshots. The source behavior is at `15c86e1`; `089f1b0` documents the validation. Neither commit establishes indefinite game stability or a single cause of the historical crash.
+The compact [known-good proof pack](pokemon-env-probe/known-good-15c86e1/baseline.txt) contains the exact APK identity, suite output, a representative launch log, and screenshots. The source behavior is at `15c86e1`; `089f1b0` documents the validation; `5dc2160` organizes the repository handoff. None establishes indefinite game stability or a single cause of the historical crash.
 
 ## 3. Architecture to preserve
 
@@ -48,7 +49,7 @@ Key source entry points: [`BEnvironment.java`](Bcore/src/main/java/top/niunaijun
 
 Historically, BlackBox Pocket repeatedly hit an instruction-fetch `SIGSEGV / SEGV_MAPERR` on `UnityMain` after about 16–20 seconds. The exact installed `libil2cpp.so` code was identified: `+0x305fb00` calculates an unmapped target, `+0x305fb04` copies it to LR, and `+0x305fb08` branches. A historical boot invocation of `BootManager.RequestLaunch` read the physical BlackBox `ApplicationInfo.dataDir`, returned `IsVspaceApp()=1`, and was followed immediately by `Rainbow.OnTpr("dvsa",1)`. The old game-side crash decision also had another true input (`onLoggedIn`); no one value was proven necessary for the fault.
 
-With general CE logical-path presentation, Pocket receives `/data/user/0/jp.pokemon.pokemontcgp`. Earlier integration launches reached title/onboarding, and the proof-pack's three cold launches plus one reopen reached in-game screens with the guest process alive beyond the old crash window. PAD `-5` persisted. This is a strong **before/after correlation**, not proof that changing the path string alone removed the crash. `IsVspaceApp()` and `dvsa` were intentionally **not remeasured** on the working build. Do not patch game logic or infer an integrity mechanism from the old branch alone. The full [investigation](POKEMON_INVESTIGATION.md) separates direct observations from hypotheses.
+With general CE logical-path presentation, Pocket receives `/data/user/0/jp.pokemon.pokemontcgp`. Earlier integration launches reached title/onboarding, and the proof-pack's three cold launches plus one reopen reached in-game screens with the guest process alive beyond the old crash window. PAD `-5` persisted. This is a strong **before/after correlation**, not proof that changing the path string alone removed the crash. `IsVspaceApp()` and `dvsa` were intentionally **not remeasured** on the working build. The old branch alone does not establish an integrity mechanism or a permanent ban on future game-specific investigation. The full [investigation](POKEMON_INVESTIGATION.md) separates direct observations from hypotheses.
 
 ## 6. Current regression baseline
 
@@ -93,6 +94,7 @@ The detailed runs, caveats, and raw references remain in [POKEMON_INVESTIGATION.
 | `9f23ce2` | `Clarify DE path routing boundary before migration` |
 | `15c86e1` | `Separate logical CE guest paths from physical backing` — production known-good behavior |
 | `089f1b0` | `Document known-good Pokémon launch baseline` — proof/documentation only |
+| `5dc2160` | `docs: consolidate project state and clean repository` — master handoff/documentation only |
 
 ## 10. Repository artifacts and document map
 
@@ -118,4 +120,4 @@ Repository hygiene audit: no tracked APK or redundant generated build product wa
 3. Make narrow, generally justified engine changes. Verify affected generic probes, virtual user/package isolation, and build output first; use Pokémon as an integration test when the generic change warrants it.
 4. Update this summary only for a meaningful change to current architecture, status, or priority. Put experiment details and raw evidence near the probe or in the investigation archive.
 
-Recommended order: design the nonzero-user UID model; harden generic regression coverage for any implementation; treat true DE/direct boot as a separate project requiring a credential-locked test device; investigate PAD when a demonstrated feature blocker warrants it. Avoid new Pokémon-specific compatibility substitutions.
+Recommended order: design the nonzero-user UID model; harden generic regression coverage for any implementation; treat true DE/direct boot as a separate project requiring a credential-locked test device; investigate PAD when a demonstrated feature blocker warrants it. Prefer general compatibility fixes; evaluate any package-specific workaround explicitly on its technical merits, scope, evidence, regression risk, and applicable constraints rather than introducing one by default.
